@@ -3,6 +3,9 @@ spring:
     name:
       otp-service
 twilio:
-  account:
-    phone-number:
-      your-phone-number
+    sid:
+      ${API_KEY}
+    auth-token:
+      ${API_TOKEN}
+    sender-number:
+      ${SENDER_NUMBER}
