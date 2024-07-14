@@ -1,0 +1,8 @@
+spring:
+  application:
+    name:
+      otp-service
+twilio:
+  account:
+    phone-number:
+      your-phone-number
