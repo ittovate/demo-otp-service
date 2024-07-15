@@ -1,8 +1,10 @@
 package com.ittovative.otpservice.controller;
 
 import com.ittovative.otpservice.dto.OtpRequestDto;
+import com.ittovative.otpservice.dto.VerifyOtpRequestDto;
 import com.ittovative.otpservice.service.SmsService;
 import com.ittovative.otpservice.util.ApiResponse;
+import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,5 +28,13 @@ public class OtpController {
         ApiResponse<String> apiResponse
                 = new ApiResponse<>(otp, HttpStatus.CREATED.value(),"Otp sent successfully!");
         return new ResponseEntity<>(apiResponse,HttpStatus.CREATED);
+    }
+
+    @PostMapping("/verify/sms")
+    public ResponseEntity<ApiResponse<String>> verify(@RequestBody VerifyOtpRequestDto verifyOtpRequestDto) throws BadRequestException {
+        smsService.verifyToken(verifyOtpRequestDto);
+        ApiResponse<String> apiResponse
+                = new ApiResponse<>(null,HttpStatus.OK.value(), "Token verified successfully!");
+        return new ResponseEntity<>(apiResponse,HttpStatus.OK);
     }
 }

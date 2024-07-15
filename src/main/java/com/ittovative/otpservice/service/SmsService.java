@@ -1,6 +1,8 @@
 package com.ittovative.otpservice.service;
 
 import com.ittovative.otpservice.dto.OtpRequestDto;
+import com.ittovative.otpservice.dto.VerifyOtpRequestDto;
+import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -9,11 +11,13 @@ import java.security.SecureRandom;
 @Service
 public class SmsService implements OtpService{
     private final TwilioSenderService twilioSenderService;
+    private final VerificationService verificationService;
 
     @Value("${twilio.sender-number}")
     private String fromPhoneNumber;
-    public SmsService(TwilioSenderService twilioSenderService) {
+    public SmsService(TwilioSenderService twilioSenderService, VerificationService verificationService) {
         this.twilioSenderService = twilioSenderService;
+        this.verificationService = verificationService;
     }
 
     public String generateOtp() {
@@ -25,8 +29,16 @@ public class SmsService implements OtpService{
     @Override
     public String send(OtpRequestDto otpRequestDto) {
         String otp = generateOtp();
+        String receiverPhoneNumber = otpRequestDto.toPhoneNumber();
         String smsMessage = "Here is your otp : " + otp;
-        twilioSenderService.sendSms(fromPhoneNumber, otpRequestDto.toPhoneNumber(), smsMessage);
+        twilioSenderService.sendSms(fromPhoneNumber, receiverPhoneNumber, smsMessage);
+        verificationService.setUserToken(receiverPhoneNumber,otp);
         return otp;
+    }
+
+    public void verifyToken(VerifyOtpRequestDto verifyOtpRequestDto) throws BadRequestException {
+        String phoneNumber = verifyOtpRequestDto.phoneNumber();
+        String token = verifyOtpRequestDto.token();
+        verificationService.validateUserToken(phoneNumber,token);
     }
 }
