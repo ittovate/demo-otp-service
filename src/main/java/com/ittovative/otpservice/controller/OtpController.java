@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/sms")
 public class OtpController {
 
     private final SmsService smsService;
@@ -22,7 +22,7 @@ public class OtpController {
         this.smsService = otpService;
     }
 
-    @PostMapping("/sms")
+    @PostMapping
     public ResponseEntity<ApiResponse<String>> sendMessage(@RequestBody OtpRequestDto otpRequestDto) {
         String otp = smsService.send(otpRequestDto);
         ApiResponse<String> apiResponse
@@ -30,7 +30,7 @@ public class OtpController {
         return new ResponseEntity<>(apiResponse,HttpStatus.CREATED);
     }
 
-    @PostMapping("/verify/sms")
+    @PostMapping("/verify")
     public ResponseEntity<ApiResponse<String>> verify(@RequestBody VerifyOtpRequestDto verifyOtpRequestDto) throws BadRequestException {
         smsService.verifyToken(verifyOtpRequestDto);
         ApiResponse<String> apiResponse
