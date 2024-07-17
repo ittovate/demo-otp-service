@@ -13,11 +13,13 @@ public class SmsService implements OtpService{
     private final TwilioSenderService twilioSenderService;
     private final VerificationService verificationService;
 
-    @Value("${twilio.sender-number}")
-    private String fromPhoneNumber;
-    public SmsService(TwilioSenderService twilioSenderService, VerificationService verificationService) {
+    private final String fromPhoneNumber;
+
+    public SmsService(@Value("${twilio.sender-number}")
+                       String fromPhoneNumber,TwilioSenderService twilioSenderService, VerificationService verificationService) {
         this.twilioSenderService = twilioSenderService;
         this.verificationService = verificationService;
+        this.fromPhoneNumber = fromPhoneNumber;
     }
 
     public String generateOtp() {
