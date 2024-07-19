@@ -1,6 +1,7 @@
 package com.ittovative.otpservice.exception;
 
 import com.ittovative.otpservice.util.ApiResponse;
+import com.twilio.exception.TwilioException;
 import org.apache.coyote.BadRequestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +23,13 @@ public class GeneralExceptionHandler {
         ApiResponse<String> apiResponse
                 = new ApiResponse<>(null,HttpStatus.NOT_FOUND.value(), noSuchElementException.getMessage());
         return new ResponseEntity<>(apiResponse,HttpStatus.NOT_FOUND);
+    }
+    @ExceptionHandler(TwilioException.class)
+    ResponseEntity<ApiResponse<String>> handle(TwilioException exception){
+        logger.error(exception.getMessage());
+        ApiResponse<String> apiResponse
+                = new ApiResponse<>(null,HttpStatus.BAD_REQUEST.value(), exception.getMessage());
+        return new ResponseEntity<>(apiResponse,HttpStatus.BAD_REQUEST);
     }
     @ExceptionHandler(BadRequestException.class)
     ResponseEntity<ApiResponse<String>> handle(BadRequestException badRequestException){

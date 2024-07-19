@@ -20,7 +20,7 @@ public class RedisVerificationService implements VerificationService{
     @Override
     public void setUserToken(String userPhone, String token) {
         redisTemplate.opsForValue().set(userPhone,token);
-        redisTemplate.expire(userPhone, RedisUtil.EXPIRY_DATE, TimeUnit.MINUTES);
+        redisTemplate.expire(userPhone, RedisUtil.EXPIRY_DATE_IN_MIN, TimeUnit.MINUTES);
     }
     @Override
     public void validateUserToken(String userPhone, String receivedToken) throws BadRequestException {
