@@ -7,6 +7,6 @@ public class RedisUtil {
 
 
     @Value("${spring.data.redis.expiry-date}")
-    public static Integer EXPIRY_DATE;
+    public static Integer EXPIRY_DATE_IN_MIN;
 
 }

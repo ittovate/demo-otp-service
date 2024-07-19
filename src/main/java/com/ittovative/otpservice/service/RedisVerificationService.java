@@ -1,4 +1,5 @@
 package com.ittovative.otpservice.service;
+import com.ittovative.otpservice.util.RedisUtil;
 import org.apache.coyote.BadRequestException;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -19,7 +20,7 @@ public class RedisVerificationService implements VerificationService{
     @Override
     public void setUserToken(String userPhone, String token) {
         redisTemplate.opsForValue().set(userPhone,token);
-        redisTemplate.expire(userPhone, 2, TimeUnit.MINUTES);
+        redisTemplate.expire(userPhone, RedisUtil.EXPIRY_DATE, TimeUnit.MINUTES);
     }
     @Override
     public void validateUserToken(String userPhone, String receivedToken) throws BadRequestException {
