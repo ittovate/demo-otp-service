@@ -14,3 +14,5 @@ twilio:
       ${TWILIO_API_TOKEN}
     sender-number:
       ${TWILIO_SENDER_NUMBER}
+    verified-number:
+      ${TWILIO_VERIFIED_NUMBER}

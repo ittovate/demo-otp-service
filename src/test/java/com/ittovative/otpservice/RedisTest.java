@@ -15,6 +15,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.Spy;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
@@ -45,7 +46,8 @@ class RedisTest {
     private @Mock RedisConnection redisConnectionMock;
     private @Mock RedisConnectionFactory redisConnectionFactoryMock;
 
-    String receiverPhoneNumber = "+201007540077";
+    @Value("${twilio.verified-number}")
+    String verifiedNumber;
     @BeforeAll
     static void beforeAll() {
         redis = new GenericContainer(DockerImageName.parse("redis"))
@@ -60,9 +62,9 @@ class RedisTest {
     @Test
     @DisplayName("Sending a successful message")
     public void sendSuccessfulMessage() {
-        String actualToken = smsService.send(new OtpRequestDto(receiverPhoneNumber));
+        String actualToken = smsService.send(new OtpRequestDto(verifiedNumber));
         Assertions.assertDoesNotThrow(
-                () -> smsService.verifyToken(new VerifyOtpRequestDto(receiverPhoneNumber,actualToken))
+                () -> smsService.verifyToken(new VerifyOtpRequestDto(verifiedNumber,actualToken))
         );
     }
     @Test
