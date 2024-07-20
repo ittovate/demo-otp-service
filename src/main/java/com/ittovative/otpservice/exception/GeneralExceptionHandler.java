@@ -11,6 +11,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.context.request.WebRequest;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,9 +24,10 @@ public class GeneralExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiResponse<Map<String, String>>>
-        handleValidationExceptions(MethodArgumentNotValidException ex) {
+        handleValidationExceptions(MethodArgumentNotValidException exception, WebRequest webRequest) {
+//        logger.error("Exception occurred: {}, Request Details: {}", exception.getMessage(), webRequest.getDescription(false), exception);
         Map<String, String> errors = new HashMap<>();
-        ex.getBindingResult().getAllErrors().forEach((error) -> {
+        exception.getBindingResult().getAllErrors().forEach((error) -> {
             String fieldName = ((FieldError) error).getField();
             String errorMessage = error.getDefaultMessage();
             errors.put(fieldName, errorMessage);
@@ -38,30 +40,30 @@ public class GeneralExceptionHandler {
     }
 
     @ExceptionHandler(NoSuchElementException.class)
-    ResponseEntity<ApiResponse<String>> handle(NoSuchElementException noSuchElementException){
-        logger.error(noSuchElementException.getMessage());
+    ResponseEntity<ApiResponse<String>> handle(NoSuchElementException exception, WebRequest webRequest){
+//        logger.error("Exception occurred: {}, Request Details: {}", exception.getMessage(), webRequest.getDescription(false), exception);
         ApiResponse<String> apiResponse
-                = new ApiResponse<>(null,HttpStatus.NOT_FOUND.value(), noSuchElementException.getMessage());
+                = new ApiResponse<>(null,HttpStatus.NOT_FOUND.value(), exception.getMessage());
         return new ResponseEntity<>(apiResponse,HttpStatus.NOT_FOUND);
     }
     @ExceptionHandler(TwilioException.class)
-    ResponseEntity<ApiResponse<String>> handle(TwilioException exception){
-        logger.error(exception.getMessage());
+    ResponseEntity<ApiResponse<String>> handle(TwilioException exception, WebRequest webRequest){
+//        logger.error("Exception occurred: {}, Request Details: {}", exception.getMessage(), webRequest.getDescription(false), exception);
         ApiResponse<String> apiResponse
                 = new ApiResponse<>(null,HttpStatus.BAD_REQUEST.value(), exception.getMessage());
         return new ResponseEntity<>(apiResponse,HttpStatus.BAD_REQUEST);
     }
     @ExceptionHandler(BadRequestException.class)
-    ResponseEntity<ApiResponse<String>> handle(BadRequestException badRequestException){
-        logger.error(badRequestException.getMessage());
+    ResponseEntity<ApiResponse<String>> handle(BadRequestException exception,WebRequest webRequest){
+//        logger.error("Exception occurred: {}, Request Details: {}", exception.getMessage(), webRequest.getDescription(false), exception);
         ApiResponse<String> apiResponse
-                = new ApiResponse<>(null,HttpStatus.BAD_REQUEST.value(), badRequestException.getMessage());
+                = new ApiResponse<>(null,HttpStatus.BAD_REQUEST.value(), exception.getMessage());
         return new ResponseEntity<>(apiResponse,HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(Exception.class)
-    ResponseEntity<ApiResponse<String>> handle(Exception exception){
-        logger.error(exception.getMessage());
+    ResponseEntity<ApiResponse<String>> handle(Exception exception,WebRequest webRequest){
+//        logger.error("Exception occurred: {}, Request Details: {}", exception.getMessage(), webRequest.getDescription(false), exception);
         ApiResponse<String> apiResponse
                 = new ApiResponse<>(null,
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),exception.getMessage());

@@ -6,6 +6,8 @@ import com.ittovative.otpservice.service.SmsService;
 import com.ittovative.otpservice.util.ApiResponse;
 import jakarta.validation.Valid;
 import org.apache.coyote.BadRequestException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,8 +25,11 @@ public class OtpController {
         this.smsService = otpService;
     }
 
+    private Logger logger = LoggerFactory.getLogger(OtpController.class);
+
     @PostMapping
     public ResponseEntity<ApiResponse<String>> sendMessage(@RequestBody @Valid OtpRequestDto otpRequestDto) {
+        logger.trace("");
         smsService.send(otpRequestDto);
         ApiResponse<String> apiResponse
                 = new ApiResponse<>(null, HttpStatus.CREATED.value(),"Otp sent successfully!");
@@ -32,7 +37,7 @@ public class OtpController {
     }
 
     @PostMapping("/verify")
-    public ResponseEntity<ApiResponse<String>> verify(@RequestBody @Valid VerifyOtpRequestDto verifyOtpRequestDto) throws BadRequestException {
+    public ResponseEntity<ApiResponse<String>> verify(@RequestBody @Valid VerifyOtpRequestDto verifyOtpRequestDto) {
         smsService.verifyToken(verifyOtpRequestDto);
         ApiResponse<String> apiResponse
                 = new ApiResponse<>(null,HttpStatus.OK.value(), "Token verified successfully!");
