@@ -37,7 +37,7 @@ public class OtpController {
     }
 
     @PostMapping("/verify")
-    public ResponseEntity<ApiResponse<String>> verify(@RequestBody @Valid VerifyOtpRequestDto verifyOtpRequestDto) {
+    public ResponseEntity<ApiResponse<String>> verify(@RequestBody @Valid VerifyOtpRequestDto verifyOtpRequestDto) throws BadRequestException {
         smsService.verifyToken(verifyOtpRequestDto);
         ApiResponse<String> apiResponse
                 = new ApiResponse<>(null,HttpStatus.OK.value(), "Token verified successfully!");
