@@ -7,11 +7,10 @@ spring:
       host: ${REDIS_HOST}
       port: ${REDIS_PORT}
       password: ${REDIS_PASSWORD}
-      expiry-date: ${REDIS_EXPIRY_TIME_IN_MINS}
 twilio:
     sid:
-      ${API_KEY}
+      ${TWILIO_API_KEY}
     auth-token:
-      ${API_TOKEN}
+      ${TWILIO_API_TOKEN}
     sender-number:
-      ${SENDER_NUMBER}
+      ${TWILIO_SENDER_NUMBER}

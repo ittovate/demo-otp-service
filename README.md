@@ -18,19 +18,16 @@
 
 ```
 # The following values can be obtained from your Twilio account
-API_KEY=
-API_TOKEN=
-SENDER_NUMBER=
+TWILIO_API_KEY=
+TWILIO_API_TOKEN=
+TWILIO_SENDER_NUMBER=
 
 # The following values can be obtained from your Redis DB
 REDIS_HOST=
 REDIS_PORT=
 REDIS_PASSWORD=
-
-# This is a user-configurable environment variable
-REDIS_EXPIRY_TIME_IN_MINS=
 ```
-
+### There is also a configurable expiry date for the message which you can modify inside ```application.yaml``` called ```spring.data.redis.expiry-date``` the default is 5 but you can change it
 # Getting Started
 1. Clone the Repository
 - ```git clone https://github.com/yourusername/otp-service.git```

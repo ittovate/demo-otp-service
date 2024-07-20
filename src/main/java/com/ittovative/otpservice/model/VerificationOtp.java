@@ -1,6 +1,6 @@
 package com.ittovative.otpservice.model;
 
-import com.ittovative.otpservice.util.RedisUtil;
+import com.ittovative.otpservice.constant.RedisUtil;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 

@@ -1,5 +1,5 @@
 package com.ittovative.otpservice.service;
-import com.ittovative.otpservice.util.RedisUtil;
+import com.ittovative.otpservice.constant.RedisUtil;
 import org.apache.coyote.BadRequestException;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.core.RedisTemplate;
