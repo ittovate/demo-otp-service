@@ -20,60 +20,94 @@ import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
+/**
+ * The type Redis test.
+ */
 @SpringBootTest
 @Testcontainers
 class RedisTest {
-  @SpyBean SmsService smsService;
+    /**
+     * The Sms service.
+     */
+    @SpyBean SmsService smsService;
 
-  static GenericContainer redis;
+    /**
+     * The Redis.
+     */
+    static GenericContainer redis;
 
-  @Spy RedisTemplate<String, String> redisTemplate;
+    /**
+     * The Redis template.
+     */
+    @Spy RedisTemplate<String, String> redisTemplate;
 
-  private @Mock TwilioSenderService twilioSenderService;
-  private @Mock VerificationService verificationService;
-  private @Mock RedisConnection redisConnectionMock;
-  private @Mock RedisConnectionFactory redisConnectionFactoryMock;
+    private @Mock TwilioSenderService twilioSenderService;
+    private @Mock VerificationService verificationService;
+    private @Mock RedisConnection redisConnectionMock;
+    private @Mock RedisConnectionFactory redisConnectionFactoryMock;
 
-  @Value("${twilio.verified-number}")
-  String verifiedNumber;
+    /**
+     * The Verified number.
+     */
+    @Value("${twilio.verified-number}")
+    String verifiedNumber;
 
-  @BeforeAll
-  static void beforeAll() {
-    redis = new GenericContainer(DockerImageName.parse("redis")).withExposedPorts(6379);
-    redis.start();
-  }
+    /**
+     * Before all.
+     */
+    @BeforeAll
+    static void beforeAll() {
+        redis = new GenericContainer(DockerImageName.parse("redis")).withExposedPorts(6379);
+        redis.start();
+    }
 
-  @BeforeEach
-  public void setUp() {
-    Mockito.when(redisConnectionFactoryMock.getConnection()).thenReturn(redisConnectionMock);
-  }
+    /**
+     * Sets up.
+     */
+    @BeforeEach
+    public void setUp() {
+        Mockito.when(redisConnectionFactoryMock.getConnection()).thenReturn(redisConnectionMock);
+    }
 
-  @Test
-  @DisplayName("Sending a successful message")
-  public void sendSuccessfulMessage() {
-    String actualToken = smsService.send(new OtpRequestDto(verifiedNumber));
-    Assertions.assertDoesNotThrow(
-        () -> smsService.verifyToken(new VerifyOtpRequestDto(verifiedNumber, actualToken)));
-  }
+    /**
+     * Send successful message.
+     */
+    @Test
+    @DisplayName("Sending a successful message")
+    public void sendSuccessfulMessage() {
+        String actualToken = smsService.send(new OtpRequestDto(verifiedNumber));
+        Assertions.assertDoesNotThrow(
+                () -> smsService.verifyToken(new VerifyOtpRequestDto(verifiedNumber, actualToken)));
+    }
 
-  @Test
-  @DisplayName("Sending an unsuccessful messsage : Too short of a Phone Number")
-  public void sendMessageToAWrongPhoneNumber() {
-    Assertions.assertThrows(Exception.class, () -> smsService.send(new OtpRequestDto("+1111")));
-  }
+    /**
+     * Send message to a wrong phone number.
+     */
+    @Test
+    @DisplayName("Sending an unsuccessful messsage : Too short of a Phone Number")
+    public void sendMessageToAWrongPhoneNumber() {
+        Assertions.assertThrows(Exception.class, () -> smsService.send(new OtpRequestDto("+1111")));
+    }
 
-  @Test
-  @DisplayName("Sending an unsuccessful messsage : Sender and Receiver have the same Phone Number")
-  public void sendMessageToYourself() {
-    Assertions.assertThrows(
-        Exception.class, () -> smsService.send(new OtpRequestDto("+15075541680")));
-  }
+    /**
+     * Send message to yourself.
+     */
+    @Test
+    @DisplayName(
+            "Sending an unsuccessful messsage : Sender and Receiver have the same Phone Number")
+    public void sendMessageToYourself() {
+        Assertions.assertThrows(
+                Exception.class, () -> smsService.send(new OtpRequestDto("+15075541680")));
+    }
 
-  @Test
-  @DisplayName(
-      "Sending an unsuccessful messsage : Sending without a code at the start of the message")
-  public void sendToAnUncodedPhoneNumber() {
-    Assertions.assertThrows(
-        ApiException.class, () -> smsService.send(new OtpRequestDto("201007540077")));
-  }
+    /**
+     * Send to an uncoded phone number.
+     */
+    @Test
+    @DisplayName(
+            "Sending an unsuccessful messsage : Sending without a code at the start of the message")
+    public void sendToAnUncodedPhoneNumber() {
+        Assertions.assertThrows(
+                ApiException.class, () -> smsService.send(new OtpRequestDto("201007540077")));
+    }
 }

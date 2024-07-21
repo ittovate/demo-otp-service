@@ -5,11 +5,19 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
+/**
+ * The type Collections config.
+ */
 @Configuration
 public class CollectionsConfig {
-  @Bean
-  @Scope("prototype")
-  public HashMap<String, String> hashMapBean() {
-    return new HashMap<>();
-  }
+    /**
+     * Hash map bean hash map.
+     *
+     * @return the hash map
+     */
+    @Bean
+    @Scope("prototype")
+    public HashMap<String, String> hashMapBean() {
+        return new HashMap<>();
+    }
 }

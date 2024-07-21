@@ -1,25 +1,61 @@
 package com.ittovative.otpservice.util;
 
+/**
+ * The type Api response.
+ *
+ * @param <T> the type parameter
+ */
 public class ApiResponse<T> {
-  T body;
-  int statusCode;
-  String message;
+    /**
+     * The Body.
+     */
+    T body;
+    /**
+     * The Status code.
+     */
+    int statusCode;
+    /**
+     * The Message.
+     */
+    String message;
 
-  public T getBody() {
-    return body;
-  }
+    /**
+     * Gets body.
+     *
+     * @return the body
+     */
+    public T getBody() {
+        return body;
+    }
 
-  public int getStatusCode() {
-    return statusCode;
-  }
+    /**
+     * Gets status code.
+     *
+     * @return the status code
+     */
+    public int getStatusCode() {
+        return statusCode;
+    }
 
-  public String getMessage() {
-    return message;
-  }
+    /**
+     * Gets message.
+     *
+     * @return the message
+     */
+    public String getMessage() {
+        return message;
+    }
 
-  public ApiResponse(T body, int statusCode, String message) {
-    this.body = body;
-    this.statusCode = statusCode;
-    this.message = message;
-  }
+    /**
+     * Instantiates a new Api response.
+     *
+     * @param body       the body
+     * @param statusCode the status code
+     * @param message    the message
+     */
+    public ApiResponse(T body, int statusCode, String message) {
+        this.body = body;
+        this.statusCode = statusCode;
+        this.message = message;
+    }
 }
