@@ -9,12 +9,20 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.WebRequest;
 
+/**
+ * The type Logging aspect.
+ */
 @Aspect
 @Component
 public class LoggingAspect {
 
     private static final Logger logger = LoggerFactory.getLogger(LoggingAspect.class);
 
+    /**
+     * Log before controller methods.
+     *
+     * @param joinPoint the join point
+     */
     @Before("execution(* com.ittovative.otpservice..*(..))")
     public void logBeforeControllerMethods(JoinPoint joinPoint) {
         String methodName = joinPoint.getSignature().toShortString();
@@ -31,7 +39,15 @@ public class LoggingAspect {
         logger.info("Executing method: {} with arguments: [{}]", methodName, argsString);
     }
 
-    @AfterThrowing(pointcut = "execution(* com.ittovative.otpservice..*.*(..))", throwing = "exception")
+    /**
+     * Log exception.
+     *
+     * @param joinPoint the join point
+     * @param exception the exception
+     */
+    @AfterThrowing(
+            pointcut = "execution(* com.ittovative.otpservice..*.*(..))",
+            throwing = "exception")
     public void logException(JoinPoint joinPoint, Throwable exception) {
         String methodName = joinPoint.getSignature().toShortString();
         String className = joinPoint.getSignature().getDeclaringTypeName();
@@ -45,9 +61,20 @@ public class LoggingAspect {
         }
 
         if (webRequest != null) {
-            logger.error("Exception in {}.{}() - {}: Request Details: {}", className, methodName, exception.getMessage(), webRequest.getDescription(false), exception);
+            logger.error(
+                    "Exception in {}.{}() - {}: Request Details: {}",
+                    className,
+                    methodName,
+                    exception.getMessage(),
+                    webRequest.getDescription(false),
+                    exception);
         } else {
-            logger.error("Exception in {}.{}() - {}", className, methodName, exception.getMessage(), exception);
+            logger.error(
+                    "Exception in {}.{}() - {}",
+                    className,
+                    methodName,
+                    exception.getMessage(),
+                    exception);
         }
     }
 }
