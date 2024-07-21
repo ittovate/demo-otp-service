@@ -1,0 +1,18 @@
+spring:
+  application:
+    name:
+      otp-service
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT}
+      password: ${REDIS_PASSWORD}
+twilio:
+    sid:
+      ${TWILIO_API_KEY}
+    auth-token:
+      ${TWILIO_API_TOKEN}
+    sender-number:
+      ${TWILIO_SENDER_NUMBER}
+    verified-number:
+      ${TWILIO_VERIFIED_NUMBER}

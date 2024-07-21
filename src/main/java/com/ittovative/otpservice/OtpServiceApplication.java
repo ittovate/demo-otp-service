@@ -10,4 +10,5 @@ public class OtpServiceApplication {
         SpringApplication.run(OtpServiceApplication.class, args);
     }
 
+
 }
