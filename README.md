@@ -9,8 +9,8 @@ This is an OTP (One Time Password) service built using Spring Boot. It leverages
 - Redis (either local, on the cloud, or via Docker)
 
 ## Environment Variables
-### You must set up the following environment variables in a file named ``.env`` inside the ```src/main/resources``` directory.
-### Create a ```.env file``` in the same directory and fill it with values.
+- You must set up the following environment variables in a file named ``.env`` inside the ```src/main/resources``` directory.
+- Create a ```.env file``` in the same directory and fill it with values.
 
 ## Environment Variables Setup
 ### Example ```keys.env``` File
