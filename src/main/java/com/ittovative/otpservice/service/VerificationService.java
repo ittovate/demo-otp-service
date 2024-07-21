@@ -12,7 +12,7 @@ public interface VerificationService {
      * @param userPhone the user phone
      * @param token     the token
      */
-              void setUserToken(String userPhone, String token);
+    void setUserToken(String userPhone, String token);
 
     /**
      * Validate user token.

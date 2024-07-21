@@ -13,6 +13,7 @@ public class VerificationOtp {
      * The Phone number.
      */
     @Id String phoneNumber;
+
     /**
      * The Token.
      */

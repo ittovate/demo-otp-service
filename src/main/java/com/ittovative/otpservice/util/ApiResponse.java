@@ -10,10 +10,12 @@ public class ApiResponse<T> {
      * The Body.
      */
     T body;
+
     /**
      * The Status code.
      */
     int statusCode;
+
     /**
      * The Message.
      */
