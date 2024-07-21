@@ -6,12 +6,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class TwilioSenderService {
-    public void sendSms(String fromPhoneNumber,String toPhoneNumber, String messageBody) {
-        Message.creator(
-                new PhoneNumber(toPhoneNumber),
-                new PhoneNumber(fromPhoneNumber),
-                messageBody
-        ).create();
-    }
-
+  public void sendSms(String fromPhoneNumber, String toPhoneNumber, String messageBody) {
+    Message.creator(new PhoneNumber(toPhoneNumber), new PhoneNumber(fromPhoneNumber), messageBody)
+        .create();
+  }
 }
