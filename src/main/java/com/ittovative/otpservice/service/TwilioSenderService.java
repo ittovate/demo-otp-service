@@ -16,7 +16,7 @@ public class TwilioSenderService {
      * @param toPhoneNumber   the to phone number
      * @param messageBody     the message body
      */
-    public void sendSms(String fromPhoneNumber, String toPhoneNumber, String messageBody) {
+    public void sendSms(final String fromPhoneNumber, final String toPhoneNumber, final String messageBody) {
         Message.creator(
                         new PhoneNumber(toPhoneNumber),
                         new PhoneNumber(fromPhoneNumber),

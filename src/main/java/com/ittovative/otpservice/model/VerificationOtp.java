@@ -12,12 +12,12 @@ public class VerificationOtp {
     /**
      * The Phone number.
      */
-    @Id String phoneNumber;
+    @Id private String phoneNumber;
 
     /**
      * The Token.
      */
-    String token;
+    private String token;
 
     /**
      * Gets phone number.
@@ -43,7 +43,7 @@ public class VerificationOtp {
      * @param phoneNumber the phone number
      * @param token       the token
      */
-    public VerificationOtp(String phoneNumber, String token) {
+    public VerificationOtp(final String phoneNumber, final String token) {
         this.phoneNumber = phoneNumber;
         this.token = token;
     }

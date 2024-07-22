@@ -6,7 +6,11 @@ import com.ittovative.otpservice.service.SmsService;
 import com.ittovative.otpservice.service.TwilioSenderService;
 import com.ittovative.otpservice.service.VerificationService;
 import com.twilio.exception.ApiException;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.Spy;
@@ -29,35 +33,127 @@ class RedisTest {
     /**
      * The Sms service.
      */
-    @SpyBean SmsService smsService;
+    @SpyBean
+    private SmsService smsService;
 
     /**
      * The Redis.
      */
-    static GenericContainer redis;
+    private static GenericContainer redis;
 
     /**
      * The Redis template.
      */
-    @Spy RedisTemplate<String, String> redisTemplate;
+    @Spy
+    private RedisTemplate<String, String> redisTemplate;
 
+    /**
+     * The TwilioSenderService instance.
+     */
     private @Mock TwilioSenderService twilioSenderService;
+    /**
+     * The VerificationService instance.
+     */
     private @Mock VerificationService verificationService;
+    /**
+     * The RedisConnection instance.
+     */
     private @Mock RedisConnection redisConnectionMock;
+    /**
+     * The RedisConnectionFactory instance.
+     */
     private @Mock RedisConnectionFactory redisConnectionFactoryMock;
+
+    /**
+     * The REDIS_PORT constant.
+     */
+    private static final int REDIS_PORT = 6379;
+
+    /**
+     * Gets sms service.
+     *
+     * @return the sms service
+     */
+    public SmsService getSmsService() {
+        return smsService;
+    }
+
+    /**
+     * Gets redis.
+     *
+     * @return the redis
+     */
+    public static GenericContainer getRedis() {
+        return redis;
+    }
+
+    /**
+     * Gets redis template.
+     *
+     * @return the redis template
+     */
+    public RedisTemplate<String, String> getRedisTemplate() {
+        return redisTemplate;
+    }
+
+    /**
+     * Gets twilio sender service.
+     *
+     * @return the twilio sender service
+     */
+    public TwilioSenderService getTwilioSenderService() {
+        return twilioSenderService;
+    }
+
+    /**
+     * Gets verification service.
+     *
+     * @return the verification service
+     */
+    public VerificationService getVerificationService() {
+        return verificationService;
+    }
+
+    /**
+     * Gets redis connection mock.
+     *
+     * @return the redis connection mock
+     */
+    public RedisConnection getRedisConnectionMock() {
+        return redisConnectionMock;
+    }
+
+    /**
+     * Gets redis connection factory mock.
+     *
+     * @return the redis connection factory mock
+     */
+    public RedisConnectionFactory getRedisConnectionFactoryMock() {
+        return redisConnectionFactoryMock;
+    }
+
+    /**
+     * Gets verified number.
+     *
+     * @return the verified number
+     */
+    public String getVerifiedNumber() {
+        return verifiedNumber;
+    }
+
 
     /**
      * The Verified number.
      */
     @Value("${twilio.verified-number}")
-    String verifiedNumber;
+    private String verifiedNumber;
 
     /**
      * Before all.
      */
     @BeforeAll
     static void beforeAll() {
-        redis = new GenericContainer(DockerImageName.parse("redis")).withExposedPorts(6379);
+        redis = new GenericContainer(DockerImageName.parse("redis")).withExposedPorts(REDIS_PORT);
         redis.start();
     }
 

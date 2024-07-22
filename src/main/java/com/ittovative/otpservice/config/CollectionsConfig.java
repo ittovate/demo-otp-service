@@ -1,12 +1,13 @@
 package com.ittovative.otpservice.config;
 
 import java.util.HashMap;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
 /**
- * The type Collections config.
+ * Collections config.
  */
 @Configuration
 public class CollectionsConfig {

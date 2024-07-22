@@ -2,9 +2,11 @@ package com.ittovative.otpservice.exception;
 
 import com.ittovative.otpservice.util.ApiResponse;
 import com.twilio.exception.TwilioException;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
+
 import org.apache.coyote.BadRequestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +27,16 @@ public class GeneralExceptionHandler {
     /**
      * The Logger.
      */
-    Logger logger = LoggerFactory.getLogger(GeneralExceptionHandler.class);
+    private Logger logger = LoggerFactory.getLogger(GeneralExceptionHandler.class);
+
+    /**
+     * Gets logger.
+     *
+     * @return the logger
+     */
+    public Logger getLogger() {
+        return logger;
+    }
 
     /**
      * Handle validation exceptions response entity.
@@ -36,7 +47,7 @@ public class GeneralExceptionHandler {
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiResponse<Map<String, String>>> handleValidationExceptions(
-            MethodArgumentNotValidException exception, WebRequest webRequest) {
+            final MethodArgumentNotValidException exception, final WebRequest webRequest) {
         //        logger.error("Exception occurred: {}, Request Details: {}",
         // exception.getMessage(),
         // webRequest.getDescription(false), exception);
@@ -64,7 +75,7 @@ public class GeneralExceptionHandler {
      */
     @ExceptionHandler(NoSuchElementException.class)
     ResponseEntity<ApiResponse<String>> handle(
-            NoSuchElementException exception, WebRequest webRequest) {
+            final NoSuchElementException exception, final WebRequest webRequest) {
         //        logger.error("Exception occurred: {}, Request Details: {}",
         // exception.getMessage(),
         // webRequest.getDescription(false), exception);
@@ -81,7 +92,7 @@ public class GeneralExceptionHandler {
      * @return the response entity
      */
     @ExceptionHandler(TwilioException.class)
-    ResponseEntity<ApiResponse<String>> handle(TwilioException exception, WebRequest webRequest) {
+    ResponseEntity<ApiResponse<String>> handle(final TwilioException exception, final WebRequest webRequest) {
         //        logger.error("Exception occurred: {}, Request Details: {}",
         // exception.getMessage(),
         // webRequest.getDescription(false), exception);
@@ -99,7 +110,7 @@ public class GeneralExceptionHandler {
      */
     @ExceptionHandler(BadRequestException.class)
     ResponseEntity<ApiResponse<String>> handle(
-            BadRequestException exception, WebRequest webRequest) {
+            final BadRequestException exception, final WebRequest webRequest) {
         //        logger.error("Exception occurred: {}, Request Details: {}",
         // exception.getMessage(),
         // webRequest.getDescription(false), exception);
@@ -116,7 +127,7 @@ public class GeneralExceptionHandler {
      * @return the response entity
      */
     @ExceptionHandler(Exception.class)
-    ResponseEntity<ApiResponse<String>> handle(Exception exception, WebRequest webRequest) {
+    ResponseEntity<ApiResponse<String>> handle(final Exception exception, final WebRequest webRequest) {
         //        logger.error("Exception occurred: {}, Request Details: {}",
         // exception.getMessage(),
         // webRequest.getDescription(false), exception);

@@ -1,3 +1,6 @@
+/**
+ * util package include any utility code
+ */
 package com.ittovative.otpservice.util;
 
 /**
@@ -9,17 +12,17 @@ public class ApiResponse<T> {
     /**
      * The Body.
      */
-    T body;
+    private T body;
 
     /**
      * The Status code.
      */
-    int statusCode;
+    private int statusCode;
 
     /**
      * The Message.
      */
-    String message;
+    private String message;
 
     /**
      * Gets body.
@@ -55,7 +58,7 @@ public class ApiResponse<T> {
      * @param statusCode the status code
      * @param message    the message
      */
-    public ApiResponse(T body, int statusCode, String message) {
+    public ApiResponse(final T body, final int statusCode, final String message) {
         this.body = body;
         this.statusCode = statusCode;
         this.message = message;
