@@ -1,6 +1,3 @@
-/**
- * aspect package is for logging aspect.
- */
 package com.ittovative.otpservice.aspect;
 
 import org.aspectj.lang.JoinPoint;

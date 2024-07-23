@@ -170,7 +170,7 @@ class RedisTest {
      */
     @Test
     @DisplayName("Sending a successful message")
-    public void sendSuccessfulMessage() {
+    void sendSuccessfulMessage() {
         String actualToken = smsService.send(new OtpRequestDto(verifiedNumber));
         Assertions.assertDoesNotThrow(
                 () -> smsService.verifyToken(new VerifyOtpRequestDto(verifiedNumber, actualToken)));
@@ -181,7 +181,7 @@ class RedisTest {
      */
     @Test
     @DisplayName("Sending an unsuccessful messsage : Too short of a Phone Number")
-    public void sendMessageToAWrongPhoneNumber() {
+    void sendMessageToAWrongPhoneNumber() {
         Assertions.assertThrows(Exception.class, () -> smsService.send(new OtpRequestDto("+1111")));
     }
 
@@ -190,19 +190,19 @@ class RedisTest {
      */
     @Test
     @DisplayName(
-            "Sending an unsuccessful messsage : Sender and Receiver have the same Phone Number")
-    public void sendMessageToYourself() {
+            "Sending an unsuccessful message : Sender and Receiver have the same Phone Number")
+    void sendMessageToYourself() {
         Assertions.assertThrows(
                 Exception.class, () -> smsService.send(new OtpRequestDto("+15075541680")));
     }
 
     /**
-     * Send to an uncoded phone number.
+     * Send to an encoded phone number.
      */
     @Test
     @DisplayName(
-            "Sending an unsuccessful messsage : Sending without a code at the start of the message")
-    public void sendToAnUncodedPhoneNumber() {
+            "Sending an unsuccessful message : Sending without a code at the start of the message")
+    void sendToAnUncodedPhoneNumber() {
         Assertions.assertThrows(
                 ApiException.class, () -> smsService.send(new OtpRequestDto("201007540077")));
     }

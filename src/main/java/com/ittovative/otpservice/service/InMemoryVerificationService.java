@@ -1,6 +1,6 @@
 package com.ittovative.otpservice.service;
 
-import java.util.HashMap;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 import org.apache.coyote.BadRequestException;
@@ -14,14 +14,14 @@ public class InMemoryVerificationService implements VerificationService {
     /**
      * HashMap for users tokens.
      */
-    private final HashMap<String, String> usersTokens;
+    private final Map<String, String> usersTokens;
 
     /**
      * Instantiates a new In memory verification service.
      *
      * @param usersTokens the users tokens
      */
-    public InMemoryVerificationService(final HashMap<String, String> usersTokens) {
+    public InMemoryVerificationService(final Map<String, String> usersTokens) {
         this.usersTokens = usersTokens;
     }
 

@@ -1,0 +1,31 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.3.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml # Validates the syntax of YAML files.
+
+#  - repo: https://github.com/pre-commit/mirrors-checkstyle
+#    rev: v9.2.1
+#    hooks:
+#      - id: checkstyle
+#        args: [--config, checkstyle/sun_checks_custom.xml]  # Path to your Checkstyle configuration file
+#        language: system
+
+#  - repo: local
+#    hooks:
+#      - id: maven-validate # Runs Maven validate phase to check if the project is correct and all necessary information is available.
+#        name: Maven Validate
+#        entry: mvn validate
+#        language: system
+#
+#      - id: dependency-check # Scans the project for vulnerable dependencies.
+#        name: Dependency Check
+#        entry: mvn org.owasp:dependency-check-maven:check
+#        language: system
+#
+#      - id: maven-test # Runs unit tests to ensure that your code changes don’t break any existing functionality.
+#        name: Maven Test
+#        entry: mvn test
+#        language: system

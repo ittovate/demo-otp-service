@@ -10,8 +10,6 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import org.apache.coyote.BadRequestException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,10 +27,6 @@ public class OtpController {
      * SmsService instance.
      */
     private final SmsService smsService;
-    /**
-     * SmsService instance.
-     */
-    private final Logger logger = LoggerFactory.getLogger(OtpController.class);
 
     /**
      * Instantiates a new Otp controller.

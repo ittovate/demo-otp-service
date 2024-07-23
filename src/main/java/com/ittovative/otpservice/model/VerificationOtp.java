@@ -12,12 +12,13 @@ public class VerificationOtp {
     /**
      * The Phone number.
      */
-    @Id private String phoneNumber;
+    @Id
+    private final String phoneNumber;
 
     /**
      * The Token.
      */
-    private String token;
+    private final String token;
 
     /**
      * Gets phone number.

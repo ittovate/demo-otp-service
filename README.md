@@ -42,13 +42,13 @@ There is also a configurable expiry date for the message which you can modify in
 
 4. Run the project
    - ```mvn spring-boot:run```
-   - This runs the web server at the default tomcat port 8080 
+   - This runs the web server at the default tomcat port 8080
 # How to use
 There is an API Documentation that you can check all endpoints and requests,responses descriptions and examples using this link after you run you just go to this endpoint ```http://localhost:8080/swagger-ui/index.html``` on your browser/HTTP Client or go to this one but it wont have lots of visuals like the other one ```http://localhost:8080/v3/api-docs```
 
-This is what you will find if you go to the first endpoint 
-![images/swagger1.png](images/swagger1.png) 
-You can list any of the endpoints and read the request/response schemas and examples 
+This is what you will find if you go to the first endpoint
+![images/swagger1.png](images/swagger1.png)
+You can list any of the endpoints and read the request/response schemas and examples
 ![images/endpoint-example-1.png](images/endpoint-example-1.png)
 ![images/endpoint-example-2.png](images/endpoint-example-2.png)
 You can also execute your own test requests and see their responses
