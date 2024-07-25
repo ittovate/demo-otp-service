@@ -8,11 +8,12 @@ repos:
 
   - repo: local
     hooks:
-      - id: maven-validate # Runs Maven validate phase to trigger checkstyle plugin check code
-        name: Maven Validate (Checkstyle)
-        entry: mvn validate
+      - id: mvn-checkstyle
+        name: Maven Checkstyle
+        entry: mvn checkstyle:check
         language: system
-        pass_filenames: false # To avoid specific error of considering TwilioSenderService.java file as maven phase
+        types: [ java ]
+        pass_filenames: false
 #
 #      - id: dependency-check # Scans the project for vulnerable dependencies.
 #        name: Dependency Check

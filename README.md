@@ -54,7 +54,9 @@ There is also a configurable expiry date for the message which you can modify in
 3. Install hooks: `pre-commit install --config ./config/.pre-commit-config.yaml`.
 4. Test hooks without committing: `pre-commit run --config ./config/.pre-commit-config.yaml --all-files`.
 ### Hooks
-- trailing-whitespace.
-- end-of-file-fixer.
-- check-yaml.
-- maven-validate (which trigger Checkstyle to check code).
+- pre-commit hooks:
+  - trailing-whitespace.
+  - end-of-file-fixer.
+  - check-yaml.
+- Local hooks:
+  - maven-checkstyle.
