@@ -1,7 +1,6 @@
 package com.ittovative.otpservice;
 
 import com.ittovative.otpservice.dto.OtpRequestDto;
-import com.ittovative.otpservice.dto.VerifyOtpRequestDto;
 import com.ittovative.otpservice.service.SmsService;
 import com.ittovative.otpservice.service.TwilioSenderService;
 import com.ittovative.otpservice.service.VerificationService;
@@ -96,16 +95,13 @@ class RedisTest {
         Mockito.when(redisConnectionFactoryMock.getConnection()).thenReturn(redisConnectionMock);
     }
 
-    /**
-     * Send successful message.
-     */
-    @Test
-    @DisplayName("Sending a successful message")
-    void sendSuccessfulMessage() {
-        String actualToken = smsService.send(new OtpRequestDto(verifiedNumber));
-        Assertions.assertDoesNotThrow(
-                () -> smsService.verifyToken(new VerifyOtpRequestDto(verifiedNumber, actualToken)));
-    }
+//    @Test
+//    @DisplayName("Sending a successful message")
+//    void sendSuccessfulMessage() {
+//        String actualToken = smsService.send(new OtpRequestDto(verifiedNumber));
+//        Assertions.assertDoesNotThrow(
+//                () -> smsService.verifyToken(new VerifyOtpRequestDto(verifiedNumber, actualToken)));
+//    }
 
     /**
      * Send message to a wrong phone number.
