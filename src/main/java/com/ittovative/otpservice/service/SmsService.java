@@ -2,12 +2,12 @@ package com.ittovative.otpservice.service;
 
 import com.ittovative.otpservice.dto.OtpRequestDto;
 import com.ittovative.otpservice.dto.VerifyOtpRequestDto;
-
-import java.security.SecureRandom;
-
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import java.security.SecureRandom;
+
 
 /**
  * The type Sms service.

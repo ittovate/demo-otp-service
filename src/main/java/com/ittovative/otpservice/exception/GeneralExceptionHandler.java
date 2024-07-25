@@ -2,11 +2,6 @@ package com.ittovative.otpservice.exception;
 
 import com.ittovative.otpservice.util.ApiResponse;
 import com.twilio.exception.TwilioException;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.NoSuchElementException;
-
 import org.apache.coyote.BadRequestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +12,11 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.NoSuchElementException;
+
 
 /**
  * The type General exception handler.

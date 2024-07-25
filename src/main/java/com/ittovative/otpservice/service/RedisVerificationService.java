@@ -1,14 +1,14 @@
 package com.ittovative.otpservice.service;
 
 import com.ittovative.otpservice.constant.RedisUtil;
-
-import java.util.NoSuchElementException;
-import java.util.concurrent.TimeUnit;
-
 import org.apache.coyote.BadRequestException;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+
+import java.util.NoSuchElementException;
+import java.util.concurrent.TimeUnit;
+
 
 /**
  * The type Redis verification service.

@@ -1,10 +1,11 @@
 package com.ittovative.otpservice.service;
 
+import org.apache.coyote.BadRequestException;
+import org.springframework.stereotype.Service;
+
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-import org.apache.coyote.BadRequestException;
-import org.springframework.stereotype.Service;
 
 /**
  * The type In memory verification service.
