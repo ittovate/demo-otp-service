@@ -48,6 +48,12 @@ class RedisTest {
     private RedisTemplate<String, String> redisTemplate;
 
     /**
+     * The Verified number.
+     */
+    @Value("${twilio.verified-number}")
+    private String verifiedNumber;
+
+    /**
      * The TwilioSenderService instance.
      */
     private @Mock TwilioSenderService twilioSenderService;
@@ -141,12 +147,6 @@ class RedisTest {
         return verifiedNumber;
     }
 
-
-    /**
-     * The Verified number.
-     */
-    @Value("${twilio.verified-number}")
-    private String verifiedNumber;
 
     /**
      * Before all.
