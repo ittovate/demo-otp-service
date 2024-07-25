@@ -6,19 +6,13 @@ repos:
       - id: end-of-file-fixer
       - id: check-yaml # Validates the syntax of YAML files.
 
-#  - repo: https://github.com/pre-commit/mirrors-checkstyle
-#    rev: v9.2.1
-#    hooks:
-#      - id: checkstyle
-#        args: [--config, checkstyle/sun_checks_custom.xml]  # Path to your Checkstyle configuration file
-#        language: system
-
-#  - repo: local
-#    hooks:
-#      - id: maven-validate # Runs Maven validate phase to check if the project is correct and all necessary information is available.
-#        name: Maven Validate
-#        entry: mvn validate
-#        language: system
+  - repo: local
+    hooks:
+      - id: maven-validate # Runs Maven validate phase to trigger checkstyle plugin check code
+        name: Maven Validate (Checkstyle)
+        entry: mvn validate
+        language: system
+        pass_filenames: false # To avoid specific error of considering TwilioSenderService.java file as maven phase
 #
 #      - id: dependency-check # Scans the project for vulnerable dependencies.
 #        name: Dependency Check
