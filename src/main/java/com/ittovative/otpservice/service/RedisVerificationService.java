@@ -16,9 +16,6 @@ import java.util.concurrent.TimeUnit;
 @Service
 @Primary
 public class RedisVerificationService implements VerificationService {
-    /**
-     * RedisTemplate instance.
-     */
     private final RedisTemplate<String, Object> redisTemplate;
 
     /**

@@ -15,9 +15,6 @@ import org.springframework.web.context.request.WebRequest;
 @Aspect
 @Component
 public class LoggingAspect {
-    /**
-     * Logger instance.
-     */
     private static final Logger LOGGER = LoggerFactory.getLogger(LoggingAspect.class);
 
     /**

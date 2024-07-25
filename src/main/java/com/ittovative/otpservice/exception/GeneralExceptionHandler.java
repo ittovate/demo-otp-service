@@ -23,17 +23,8 @@ import java.util.NoSuchElementException;
  */
 @ControllerAdvice
 public class GeneralExceptionHandler {
-
-    /**
-     * The Logger.
-     */
     private static final Logger LOGGER = LoggerFactory.getLogger(GeneralExceptionHandler.class);
 
-    /**
-     * Gets LOGGER.
-     *
-     * @return the LOGGER
-     */
     public Logger getLogger() {
         return LOGGER;
     }

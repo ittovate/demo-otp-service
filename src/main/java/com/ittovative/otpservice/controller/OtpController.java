@@ -23,9 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/sms")
 public class OtpController {
-    /**
-     * SmsService instance.
-     */
     private final SmsService smsService;
 
     /**

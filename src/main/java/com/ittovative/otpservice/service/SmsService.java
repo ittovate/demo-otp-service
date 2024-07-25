@@ -14,25 +14,10 @@ import java.security.SecureRandom;
  */
 @Service
 public class SmsService implements OtpService {
-    /**
-     * The TwilioSenderService instance.
-     */
     private final TwilioSenderService twilioSenderService;
-    /**
-     * The VerificationService instance.
-     */
     private final VerificationService verificationService;
-    /**
-     * The sender phone number.
-     */
     private final String fromPhoneNumber;
-    /**
-     * Upper limit for generating OTP.
-     */
     private static final int RANDOM_UPPER_LIMIT = 900000;
-    /**
-     * Lower limit for generating OTP.
-     */
     private static final int RANDOM_LOWER_LIMIT = 100000;
 
     /**

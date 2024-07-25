@@ -12,9 +12,6 @@ import java.util.NoSuchElementException;
  */
 @Service
 public class InMemoryVerificationService implements VerificationService {
-    /**
-     * HashMap for users tokens.
-     */
     private final Map<String, String> usersTokens;
 
     /**

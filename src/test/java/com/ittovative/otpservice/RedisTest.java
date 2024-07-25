@@ -30,123 +30,54 @@ import org.testcontainers.utility.DockerImageName;
 @SpringBootTest
 @Testcontainers
 class RedisTest {
-    /**
-     * The Sms service.
-     */
-    @SpyBean
-    private SmsService smsService;
-
-    /**
-     * The Redis.
-     */
-    private static GenericContainer redis;
-
-    /**
-     * The Redis template.
-     */
-    @Spy
-    private RedisTemplate<String, String> redisTemplate;
-
-    /**
-     * The Verified number.
-     */
     @Value("${twilio.verified-number}")
     private String verifiedNumber;
-
-    /**
-     * The TwilioSenderService instance.
-     */
-    private @Mock TwilioSenderService twilioSenderService;
-    /**
-     * The VerificationService instance.
-     */
-    private @Mock VerificationService verificationService;
-    /**
-     * The RedisConnection instance.
-     */
-    private @Mock RedisConnection redisConnectionMock;
-    /**
-     * The RedisConnectionFactory instance.
-     */
-    private @Mock RedisConnectionFactory redisConnectionFactoryMock;
-
-    /**
-     * The REDIS_PORT constant.
-     */
+    @Mock
+    private TwilioSenderService twilioSenderService;
+    @Mock
+    private VerificationService verificationService;
+    @SpyBean
+    private SmsService smsService;
+    private static GenericContainer redis;
     private static final int REDIS_PORT = 6379;
+    @Spy
+    private RedisTemplate<String, String> redisTemplate;
+    @Mock
+    private RedisConnection redisConnectionMock;
+    @Mock
+    private RedisConnectionFactory redisConnectionFactoryMock;
 
-    /**
-     * Gets sms service.
-     *
-     * @return the sms service
-     */
     public SmsService getSmsService() {
         return smsService;
     }
 
-    /**
-     * Gets redis.
-     *
-     * @return the redis
-     */
     public static GenericContainer getRedis() {
         return redis;
     }
 
-    /**
-     * Gets redis template.
-     *
-     * @return the redis template
-     */
     public RedisTemplate<String, String> getRedisTemplate() {
         return redisTemplate;
     }
 
-    /**
-     * Gets twilio sender service.
-     *
-     * @return the twilio sender service
-     */
     public TwilioSenderService getTwilioSenderService() {
         return twilioSenderService;
     }
 
-    /**
-     * Gets verification service.
-     *
-     * @return the verification service
-     */
     public VerificationService getVerificationService() {
         return verificationService;
     }
 
-    /**
-     * Gets redis connection mock.
-     *
-     * @return the redis connection mock
-     */
     public RedisConnection getRedisConnectionMock() {
         return redisConnectionMock;
     }
 
-    /**
-     * Gets redis connection factory mock.
-     *
-     * @return the redis connection factory mock
-     */
     public RedisConnectionFactory getRedisConnectionFactoryMock() {
         return redisConnectionFactoryMock;
     }
 
-    /**
-     * Gets verified number.
-     *
-     * @return the verified number
-     */
     public String getVerifiedNumber() {
         return verifiedNumber;
     }
-
 
     /**
      * Before all.
