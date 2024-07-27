@@ -13,5 +13,6 @@ class OtpServiceApplicationTests {
      * Context loads.
      */
     @Test
-    void contextLoads() {}
+    void contextLoads() {
+    }
 }

@@ -10,13 +10,12 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.WebRequest;
 
 /**
- * The type Logging aspect.
+ * Logging aspect.
  */
 @Aspect
 @Component
 public class LoggingAspect {
-
-    private static final Logger logger = LoggerFactory.getLogger(LoggingAspect.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoggingAspect.class);
 
     /**
      * Log before controller methods.
@@ -24,7 +23,7 @@ public class LoggingAspect {
      * @param joinPoint the join point
      */
     @Before("execution(* com.ittovative.otpservice..*(..))")
-    public void logBeforeControllerMethods(JoinPoint joinPoint) {
+    public void logBeforeControllerMethods(final JoinPoint joinPoint) {
         String methodName = joinPoint.getSignature().toShortString();
         Object[] args = joinPoint.getArgs();
         StringBuilder argsString = new StringBuilder();
@@ -36,7 +35,7 @@ public class LoggingAspect {
         if (!argsString.isEmpty()) {
             argsString.setLength(argsString.length() - 2);
         }
-        logger.info("Executing method: {} with arguments: [{}]", methodName, argsString);
+        LOGGER.info("Executing method: {} with arguments: [{}]", methodName, argsString);
     }
 
     /**
@@ -48,7 +47,7 @@ public class LoggingAspect {
     @AfterThrowing(
             pointcut = "execution(* com.ittovative.otpservice..*.*(..))",
             throwing = "exception")
-    public void logException(JoinPoint joinPoint, Throwable exception) {
+    public void logException(final JoinPoint joinPoint, final Throwable exception) {
         String methodName = joinPoint.getSignature().toShortString();
         String className = joinPoint.getSignature().getDeclaringTypeName();
 
@@ -61,7 +60,7 @@ public class LoggingAspect {
         }
 
         if (webRequest != null) {
-            logger.error(
+            LOGGER.error(
                     "Exception in {}.{}() - {}: Request Details: {}",
                     className,
                     methodName,
@@ -69,7 +68,7 @@ public class LoggingAspect {
                     webRequest.getDescription(false),
                     exception);
         } else {
-            logger.error(
+            LOGGER.error(
                     "Exception in {}.{}() - {}",
                     className,
                     methodName,

@@ -1,0 +1,26 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.3.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml # Validates the syntax of YAML files.
+
+  - repo: local
+    hooks:
+      - id: mvn-checkstyle
+        name: Maven Checkstyle
+        entry: mvn checkstyle:check
+        language: system
+        types: [ java ]
+        pass_filenames: false
+#      - id: dependency-check # Scans the project for vulnerable dependencies.
+#        name: Dependency Check
+#        entry: mvn org.owasp:dependency-check-maven:check
+#        language: system
+#        pass_filenames: false
+#      - id: maven-test # Runs unit tests to ensure that your code changes don’t break any existing functionality.
+#        name: Maven Test
+#        entry: mvn test
+#        language: system
+#        pass_filenames: false

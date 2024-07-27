@@ -1,23 +1,26 @@
 package com.ittovative.otpservice.config;
 
-import java.util.HashMap;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
+import java.util.HashMap;
+import java.util.Map;
+
+
 /**
- * The type Collections config.
+ * Collections config.
  */
 @Configuration
 public class CollectionsConfig {
     /**
-     * Hash map bean hash map.
+     * Map bean.
      *
-     * @return the hash map
+     * @return the map
      */
     @Bean
     @Scope("prototype")
-    public HashMap<String, String> hashMapBean() {
+    public Map<String, String> hashMapBean() {
         return new HashMap<>();
     }
 }

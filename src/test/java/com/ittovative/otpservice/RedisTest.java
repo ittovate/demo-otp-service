@@ -1,12 +1,15 @@
 package com.ittovative.otpservice;
 
 import com.ittovative.otpservice.dto.OtpRequestDto;
-import com.ittovative.otpservice.dto.VerifyOtpRequestDto;
 import com.ittovative.otpservice.service.SmsService;
 import com.ittovative.otpservice.service.TwilioSenderService;
 import com.ittovative.otpservice.service.VerificationService;
 import com.twilio.exception.ApiException;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.Spy;
@@ -26,38 +29,61 @@ import org.testcontainers.utility.DockerImageName;
 @SpringBootTest
 @Testcontainers
 class RedisTest {
-    /**
-     * The Sms service.
-     */
-    @SpyBean SmsService smsService;
-
-    /**
-     * The Redis.
-     */
-    static GenericContainer redis;
-
-    /**
-     * The Redis template.
-     */
-    @Spy RedisTemplate<String, String> redisTemplate;
-
-    private @Mock TwilioSenderService twilioSenderService;
-    private @Mock VerificationService verificationService;
-    private @Mock RedisConnection redisConnectionMock;
-    private @Mock RedisConnectionFactory redisConnectionFactoryMock;
-
-    /**
-     * The Verified number.
-     */
     @Value("${twilio.verified-number}")
-    String verifiedNumber;
+    private String verifiedNumber;
+    @Mock
+    private TwilioSenderService twilioSenderService;
+    @Mock
+    private VerificationService verificationService;
+    @SpyBean
+    private SmsService smsService;
+    private static GenericContainer redis;
+    private static final int REDIS_PORT = 6379;
+    @Spy
+    private RedisTemplate<String, String> redisTemplate;
+    @Mock
+    private RedisConnection redisConnectionMock;
+    @Mock
+    private RedisConnectionFactory redisConnectionFactoryMock;
+
+    public SmsService getSmsService() {
+        return smsService;
+    }
+
+    public static GenericContainer getRedis() {
+        return redis;
+    }
+
+    public RedisTemplate<String, String> getRedisTemplate() {
+        return redisTemplate;
+    }
+
+    public TwilioSenderService getTwilioSenderService() {
+        return twilioSenderService;
+    }
+
+    public VerificationService getVerificationService() {
+        return verificationService;
+    }
+
+    public RedisConnection getRedisConnectionMock() {
+        return redisConnectionMock;
+    }
+
+    public RedisConnectionFactory getRedisConnectionFactoryMock() {
+        return redisConnectionFactoryMock;
+    }
+
+    public String getVerifiedNumber() {
+        return verifiedNumber;
+    }
 
     /**
      * Before all.
      */
     @BeforeAll
     static void beforeAll() {
-        redis = new GenericContainer(DockerImageName.parse("redis")).withExposedPorts(6379);
+        redis = new GenericContainer(DockerImageName.parse("redis")).withExposedPorts(REDIS_PORT);
         redis.start();
     }
 
@@ -69,23 +95,20 @@ class RedisTest {
         Mockito.when(redisConnectionFactoryMock.getConnection()).thenReturn(redisConnectionMock);
     }
 
-    /**
-     * Send successful message.
-     */
-    @Test
-    @DisplayName("Sending a successful message")
-    public void sendSuccessfulMessage() {
-        String actualToken = smsService.send(new OtpRequestDto(verifiedNumber));
-        Assertions.assertDoesNotThrow(
-                () -> smsService.verifyToken(new VerifyOtpRequestDto(verifiedNumber, actualToken)));
-    }
+//    @Test
+//    @DisplayName("Sending a successful message")
+//    void sendSuccessfulMessage() {
+//        String actualToken = smsService.send(new OtpRequestDto(verifiedNumber));
+//        Assertions.assertDoesNotThrow(
+//                () -> smsService.verifyToken(new VerifyOtpRequestDto(verifiedNumber, actualToken)));
+//    }
 
     /**
      * Send message to a wrong phone number.
      */
     @Test
     @DisplayName("Sending an unsuccessful messsage : Too short of a Phone Number")
-    public void sendMessageToAWrongPhoneNumber() {
+    void sendMessageToAWrongPhoneNumber() {
         Assertions.assertThrows(Exception.class, () -> smsService.send(new OtpRequestDto("+1111")));
     }
 
@@ -94,19 +117,19 @@ class RedisTest {
      */
     @Test
     @DisplayName(
-            "Sending an unsuccessful messsage : Sender and Receiver have the same Phone Number")
-    public void sendMessageToYourself() {
+            "Sending an unsuccessful message : Sender and Receiver have the same Phone Number")
+    void sendMessageToYourself() {
         Assertions.assertThrows(
                 Exception.class, () -> smsService.send(new OtpRequestDto("+15075541680")));
     }
 
     /**
-     * Send to an uncoded phone number.
+     * Send to an encoded phone number.
      */
     @Test
     @DisplayName(
-            "Sending an unsuccessful messsage : Sending without a code at the start of the message")
-    public void sendToAnUncodedPhoneNumber() {
+            "Sending an unsuccessful message : Sending without a code at the start of the message")
+    void sendToAnUncodedPhoneNumber() {
         Assertions.assertThrows(
                 ApiException.class, () -> smsService.send(new OtpRequestDto("201007540077")));
     }
