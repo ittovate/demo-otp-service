@@ -18,12 +18,8 @@ import java.util.concurrent.TimeUnit;
 public class RedisVerificationService implements VerificationService {
     private final RedisTemplate<String, Object> redisTemplate;
 
-    /**
-     * Instantiates a new Redis verification service.
-     *
-     * @param redisTemplate the redis template
-     */
-    public RedisVerificationService(final RedisTemplate<String, Object> redisTemplate) {
+
+    public RedisVerificationService(RedisTemplate<String, Object> redisTemplate) {
         this.redisTemplate = redisTemplate;
     }
 
@@ -34,7 +30,7 @@ public class RedisVerificationService implements VerificationService {
      * @param token     the token
      */
     @Override
-    public void setUserToken(final String userPhone, final String token) {
+    public void setUserToken(String userPhone, String token) {
         redisTemplate.opsForValue().set(userPhone, token);
         redisTemplate.expire(userPhone, RedisUtil.EXPIRY_DATE_IN_MIN, TimeUnit.MINUTES);
     }
@@ -46,7 +42,7 @@ public class RedisVerificationService implements VerificationService {
      * @param receivedToken the received token
      */
     @Override
-    public void validateUserToken(final String userPhone, final String receivedToken)
+    public void validateUserToken(String userPhone, String receivedToken)
             throws BadRequestException {
         String actualToken = (String) redisTemplate.opsForValue().get(userPhone);
         if (actualToken == null) {

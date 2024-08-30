@@ -38,7 +38,7 @@ public class GeneralExceptionHandler {
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiResponse<Map<String, String>>> handleValidationExceptions(
-            final MethodArgumentNotValidException exception, final WebRequest webRequest) {
+            MethodArgumentNotValidException exception, WebRequest webRequest) {
         Map<String, String> errors = new HashMap<>();
         exception
                 .getBindingResult()
@@ -63,7 +63,7 @@ public class GeneralExceptionHandler {
      */
     @ExceptionHandler(NoSuchElementException.class)
     ResponseEntity<ApiResponse<String>> handle(
-            final NoSuchElementException exception, final WebRequest webRequest) {
+            NoSuchElementException exception, WebRequest webRequest) {
         ApiResponse<String> apiResponse =
                 new ApiResponse<>(null, HttpStatus.NOT_FOUND.value(), exception.getMessage());
         return new ResponseEntity<>(apiResponse, HttpStatus.NOT_FOUND);
@@ -77,7 +77,7 @@ public class GeneralExceptionHandler {
      * @return the response entity
      */
     @ExceptionHandler(TwilioException.class)
-    ResponseEntity<ApiResponse<String>> handle(final TwilioException exception, final WebRequest webRequest) {
+    ResponseEntity<ApiResponse<String>> handle(TwilioException exception, WebRequest webRequest) {
         ApiResponse<String> apiResponse =
                 new ApiResponse<>(null, HttpStatus.BAD_REQUEST.value(), exception.getMessage());
         return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
@@ -92,7 +92,7 @@ public class GeneralExceptionHandler {
      */
     @ExceptionHandler(BadRequestException.class)
     ResponseEntity<ApiResponse<String>> handle(
-            final BadRequestException exception, final WebRequest webRequest) {
+            BadRequestException exception, WebRequest webRequest) {
         ApiResponse<String> apiResponse =
                 new ApiResponse<>(null, HttpStatus.BAD_REQUEST.value(), exception.getMessage());
         return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
@@ -106,7 +106,7 @@ public class GeneralExceptionHandler {
      * @return the response entity
      */
     @ExceptionHandler(Exception.class)
-    ResponseEntity<ApiResponse<String>> handle(final Exception exception, final WebRequest webRequest) {
+    ResponseEntity<ApiResponse<String>> handle(Exception exception, WebRequest webRequest) {
         ApiResponse<String> apiResponse =
                 new ApiResponse<>(
                         null, HttpStatus.INTERNAL_SERVER_ERROR.value(), exception.getMessage());
