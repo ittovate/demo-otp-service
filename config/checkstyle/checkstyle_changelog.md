@@ -10,5 +10,6 @@
 - Disable JavaDocs check for:
   - Packages.
   - Fields.
-  - Getters and setters.
+  - Getters, setters, and constructors.
 - Remove DesignForExtension check since it's not complicated project and we don't want warning about missing JavaDocs for getters
+- Disable checks for `FinalParameters`

@@ -23,7 +23,7 @@ public class LoggingAspect {
      * @param joinPoint the join point
      */
     @Before("execution(* com.ittovative.otpservice..*(..))")
-    public void logBeforeControllerMethods(final JoinPoint joinPoint) {
+    public void logBeforeControllerMethods(JoinPoint joinPoint) {
         String methodName = joinPoint.getSignature().toShortString();
         Object[] args = joinPoint.getArgs();
         StringBuilder argsString = new StringBuilder();
@@ -47,7 +47,7 @@ public class LoggingAspect {
     @AfterThrowing(
             pointcut = "execution(* com.ittovative.otpservice..*.*(..))",
             throwing = "exception")
-    public void logException(final JoinPoint joinPoint, final Throwable exception) {
+    public void logException(JoinPoint joinPoint, Throwable exception) {
         String methodName = joinPoint.getSignature().toShortString();
         String className = joinPoint.getSignature().getDeclaringTypeName();
 

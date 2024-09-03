@@ -115,6 +115,7 @@
     <module name="JavadocStyle"/>
     <module name="MissingJavadocMethod">
       <property name="allowMissingPropertyJavadoc" value="true"/>
+      <property name="tokens" value="METHOD_DEF , ANNOTATION_FIELD_DEF , COMPACT_CTOR_DEF "/>
     </module>
 
     <!-- Checks for Naming Conventions.                  -->
@@ -196,7 +197,7 @@
     <!-- Miscellaneous other checks.                   -->
     <!-- See https://checkstyle.org/checks/misc/index.html -->
     <module name="ArrayTypeStyle"/>
-    <module name="FinalParameters"/>
+<!--    <module name="FinalParameters"/>-->
     <module name="TodoComment"/>
     <module name="UpperEll"/>
 

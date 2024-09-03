@@ -20,13 +20,7 @@ public class SmsService implements OtpService {
     private static final int RANDOM_UPPER_LIMIT = 900000;
     private static final int RANDOM_LOWER_LIMIT = 100000;
 
-    /**
-     * Instantiates a new Sms service.
-     *
-     * @param fromPhoneNumber     the from phone number
-     * @param twilioSenderService the twilio sender service
-     * @param verificationService the verification service
-     */
+
     public SmsService(
             @Value("${twilio.sender-number}") final String fromPhoneNumber,
             final TwilioSenderService twilioSenderService,
@@ -53,7 +47,7 @@ public class SmsService implements OtpService {
      * @param otpRequestDto object transfer object for OTP request
      */
     @Override
-    public String send(final OtpRequestDto otpRequestDto) {
+    public String send(OtpRequestDto otpRequestDto) {
         String otp = generateOtp();
         String receiverPhoneNumber = otpRequestDto.toPhoneNumber();
         String smsMessage = "Here is your otp : " + otp;
@@ -68,7 +62,7 @@ public class SmsService implements OtpService {
      * @param verifyOtpRequestDto the verify otp request dto
      * @throws BadRequestException the bad request exception
      */
-    public void verifyToken(final VerifyOtpRequestDto verifyOtpRequestDto) throws BadRequestException {
+    public void verifyToken(VerifyOtpRequestDto verifyOtpRequestDto) throws BadRequestException {
         String phoneNumber = verifyOtpRequestDto.phoneNumber();
         String token = verifyOtpRequestDto.token();
         verificationService.validateUserToken(phoneNumber, token);

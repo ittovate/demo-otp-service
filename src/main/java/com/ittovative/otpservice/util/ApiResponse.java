@@ -22,14 +22,8 @@ public class ApiResponse<T> {
         return message;
     }
 
-    /**
-     * Instantiates a new Api response.
-     *
-     * @param body       the body
-     * @param statusCode the status code
-     * @param message    the message
-     */
-    public ApiResponse(final T body, final int statusCode, final String message) {
+
+    public ApiResponse(T body, int statusCode, String message) {
         this.body = body;
         this.statusCode = statusCode;
         this.message = message;

@@ -25,12 +25,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class OtpController {
     private final SmsService smsService;
 
-    /**
-     * Instantiates a new Otp controller.
-     *
-     * @param otpService the otp service
-     */
-    public OtpController(final SmsService otpService) {
+
+    public OtpController(SmsService otpService) {
         this.smsService = otpService;
     }
 
@@ -90,7 +86,7 @@ public class OtpController {
             })
     @PostMapping
     public ResponseEntity<ApiResponse<String>> sendMessage(
-            @RequestBody @Valid final OtpRequestDto otpRequestDto) {
+            @RequestBody @Valid OtpRequestDto otpRequestDto) {
         smsService.send(otpRequestDto);
         ApiResponse<String> apiResponse =
                 new ApiResponse<>(null, HttpStatus.CREATED.value(), "Otp sent successfully!");
@@ -157,7 +153,7 @@ public class OtpController {
             })
     @PostMapping("/verify")
     public ResponseEntity<ApiResponse<String>> verify(
-            @RequestBody @Valid final VerifyOtpRequestDto verifyOtpRequestDto)
+            @RequestBody @Valid VerifyOtpRequestDto verifyOtpRequestDto)
             throws BadRequestException {
         smsService.verifyToken(verifyOtpRequestDto);
         ApiResponse<String> apiResponse =
