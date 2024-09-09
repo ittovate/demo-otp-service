@@ -11,7 +11,7 @@
 - Twilio Account (along with your verified number).
 
 # ⚡ Running
-1. Clone the repository `git clone https://github.com/yourusername/otp-service.git`.
+1. Clone the repository `git clone https://github.com/MohanadKh03/otp-service.git`.
 2. Change directory to it `cd otp-service`.
 3. [Configure Environment Variables](#-setting-up-environment-variables).
 3. Build the Project `mvn clean install`.
