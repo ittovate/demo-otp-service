@@ -1,62 +1,34 @@
-# OTP Service
-This is an OTP (One Time Password) service built using Spring Boot. It leverages Twilio for sending OTPs via SMS and Redis for storing OTPs with an expiration time. This service is designed to be simple, and easy to configure.
+# ⚫ Introduction
+- This is an OTP (One Time Password) service built using Spring Boot.
+- It leverages Twilio for sending OTPs via SMS and Redis for storing OTPs with an expiration time.
+- This service is designed to be simple, and easy to configure.
 
-
-# Prerequisites
-- Java 21
+# 🔴 Prerequisites
+- Java 21.0.3
+- Apache Maven 3.9.8
 - Spring Boot 3.3.1
-- Maven (for building the project)
-- Twilio Account (for sending SMS)
-- Redis (either local, on the cloud, or via Docker)
+- Redis Account (along with a created database).
+- Twilio Account (along with your verified number).
 
+# 🚀 Running
+1. Clone the repository `git clone https://github.com/yourusername/otp-service.git`.
+2. Change directory to it `cd otp-service`.
+3. [Configure Environment Variables](#-setting-up-environment-variables).
+3. Build the Project `mvn clean install`.
+4. Run the project `mvn spring-boot:run`.
+5. [Try it out!](docs/usage.md)
 
-# Environment Variables
-- You must set up the following environment variables in a file named `.env` inside the `src/main/resources` directory.
-- Create a `.env file` in the same directory and fill it with values.
-- There is an example file called `keys.env` located in the src/main/resources directory. This file contains all the necessary environment variables required for the OTP Service. Below is the content of the keys.env file:
-```
-# The following values can be obtained from your Twilio account
-TWILIO_API_KEY=
-TWILIO_API_TOKEN=
-TWILIO_SENDER_NUMBER=
-TWILIO_VERIFIED_NUMBER=
+# ⚙ Setting Up Environment Variables
+1. Duplicate `src/main/resources/keys.env` file and rename the copy to `.env`.
+2. Fill fields with values from your Twilio account and Redis account:
+   - `TWILIO_API_KEY` is "Accound SID" under "Account Info" section in https://console.twilio.com/.
+   - `TWILIO_API_TOKEN` is "Auth Token" under "Account Info" section in https://console.twilio.com/.
+   - `TWILIO_SENDER_NUMBER` is "My Twilio phone number" under "Account Info" section in https://console.twilio.com/.
+   - `TWILIO_VERIFIED_NUMBER` is your verified number used in your Twilio account.
+   - `REDIS_HOST` & `REDIS_PORT` are "Public endpoint" under "General" section (in the database settings).
+   - `REDIS_PASSWORD` is under "Security" section (in the database settings).
 
-# The following values can be obtained from your Redis DB
-REDIS_HOST=
-REDIS_PORT=
-REDIS_PASSWORD=
-```
-There is also a configurable expiry date for the message which you can modify inside `application.yaml` called `spring.data.redis.expiry-date` the default is 5 but you can change it.
-
-
-# Getting Started
-1. Clone the Repository
-   - ```git clone https://github.com/yourusername/otp-service.git```
-   - ```cd otp-service```
-2. Configure Environment Variables
-   - Create the ```.env``` file in ```src/main/resources``` and fill in the required environment variables as explained above.
-3. Build the Project
-   - ```mvn clean install```
-   - This should make a new ```target``` directory which has all the ```.class``` (build) files
-
-4. Run the project
-   - ```mvn spring-boot:run```
-   - This runs the web server at the default tomcat port 8080
-# [How To Use](docs/usage.md)
-# Contribution
-## Code Quality And Style
-- Use Checkstyle IntelliJ plugin (use [sun_checks_custom.xml](https://github.com/MohanadKh03/otp-service/blob/checkstyle/sun-config/config/checkstyle/sun_checks_custom.xml) as the configuration).
-- Use SonarLint IntelliJ plugin.
-## Pre-commit Hooks
-### Installation
-1. Install [Python](https://www.python.org/downloads/).
-2. Install [pre-commit](https://pre-commit.com/): `pip install pre-commit`.
-3. Install hooks: `pre-commit install --config ./config/.pre-commit-config.yaml`.
-4. Test hooks without committing: `pre-commit run --config ./config/.pre-commit-config.yaml --all-files`.
-### Hooks
-- pre-commit hooks:
-  - trailing-whitespace.
-  - end-of-file-fixer.
-  - check-yaml.
-- Local hooks:
-  - maven-checkstyle.
+# 🙋‍♂️ Contribution
+- [Code Quality And Style](https://github.com/Ahmad-AlDeeb/ittovative-knowledge-base/blob/master/%F0%9F%94%B4%20Demos/Code%20Quality%20And%20Style.md).
+- [Git Management](https://github.com/Ahmad-AlDeeb/ittovative-knowledge-base/blob/master/%F0%9F%94%B4%20Demos/Git%20Management%20Policy.md).
+- [Documentation](https://github.com/Ahmad-AlDeeb/ittovative-knowledge-base/blob/master/%F0%9F%94%B4%20Demos/Documentation.md).
