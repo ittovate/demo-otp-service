@@ -14,9 +14,9 @@
 1. Clone the repository `git clone https://github.com/MohanadKh03/otp-service.git`.
 2. Change directory to it `cd otp-service`.
 3. [Configure Environment Variables](#-setting-up-environment-variables).
-3. Build the Project `mvn clean install`.
-4. Run the project `mvn spring-boot:run`.
-5. [Try it out!](docs/usage.md)
+4. Build the Project `mvn clean install`.
+5. Run the project `mvn spring-boot:run`.
+6. [Try it out!](docs/usage.md)
 
 # ⚙ Setting Up Environment Variables
 1. Duplicate `src/main/resources/keys.env` file and rename the copy to `.env`.
