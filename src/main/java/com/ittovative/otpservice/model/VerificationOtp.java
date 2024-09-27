@@ -1,15 +1,17 @@
 package com.ittovative.otpservice.model;
 
-import com.ittovative.otpservice.constant.RedisUtil;
+import com.ittovative.otpservice.constant.RedisConstant;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import org.springframework.data.redis.core.RedisHash;
 
-@RedisHash(value = RedisUtil.VERIFICATION_OTP_HASH)
+import static com.ittovative.otpservice.constant.ApiResponseConstant.INVALID_PHONE_NUMBER_FORMAT;
+
+@RedisHash(value = RedisConstant.VERIFICATION_OTP_HASH)
 public record VerificationOtp(
         @NotBlank
         @Pattern(regexp = "^[+0-9-]+$",
-                message = "Invalid phone number format(Only digits, plus-sign and dashes are allowed)")
+                message = INVALID_PHONE_NUMBER_FORMAT)
         String phoneNumber,
         String token) {
 }

@@ -8,7 +8,7 @@ public final class SwaggerConstant {
     public static final String CONTACT_URL = "https://github.com/orgs/ittovate/";
 
     public static final String CONTROLLER_NAME = "OTP Controller";
-    public static final String CONTROLLER_DESCRIPTION = "Send OTP and verify tokens";
+    public static final String CONTROLLER_DESCRIPTION = "Send OTP and verify token";
 
     //================================================= Send OTP =================================================//
     public static final String SEND_OTP_SUMMARY = "Send OTP in SMS and stores it for a configured expiry date time";
