@@ -3,20 +3,33 @@
 - It leverages Twilio for sending OTPs via SMS and Redis for storing OTPs with an expiration time.
 - This service is designed to be simple, and easy to configure.
 
+### Key Features:
+- **Twilio Integration**: Send OTPs via SMS to users.
+- **Redis Cache**: Securely store OTPs with a predefined expiration time.
+- **Swagger UI**: Interactive API documentation for easy testing and interaction.
+
+### Visual Representation
+- The following video demonstrates how to interact with the application:
+  - **Left window**: Using Swagger UI to send and verify OTP.
+  - **Right window**: [PhoneLink](https://www.microsoft.com/en-us/windows/sync-across-your-devices?r=1) app to show recieved OTP on phone.
+
+<div align="center">
+  <video src="https://github.com/user-attachments/assets/467165ec-c961-463b-8971-fe86522e6dd4"></video>
+</div>
+
 # 🔴 Prerequisites
-- Java 21.0.3
-- Apache Maven 3.9.8
-- Spring Boot 3.3.1
+- **Java 21.0.3**: Required to build and run the Spring Boot applications.
+- **Apache Maven 3.9.8**: Used for dependency management and building the project.
+- **Spring Boot 3.3.1**: Framework for building the Kafka producer and consumer demos.
 - Redis Account (along with a created database).
 - Twilio Account (along with your verified number).
 
 # ⚡ Running
 1. Clone the repository `git clone https://github.com/MohanadKh03/otp-service.git`.
-2. Change directory to it `cd otp-service`.
-3. [Configure Environment Variables](#-setting-up-environment-variables).
-4. Build the Project `mvn clean install`.
-5. Run the project `mvn spring-boot:run`.
-6. [Try it out!](usage.md)
+2. Change directory to it `cd demo-otp-service`.
+3. [Configure environment variables](#-setting-up-environment-variables).
+4. Build and run the Project `mvn clean install spring-boot:run`.
+5. [Try it out!](http://localhost:8080/swagger-ui/index.html)
 
 # ⚙ Setting Up Environment Variables
 1. Duplicate `src/main/resources/keys.env` file and rename the copy to `.env`.
