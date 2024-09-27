@@ -9,13 +9,20 @@ import org.springframework.stereotype.Service;
 import java.security.SecureRandom;
 
 @Service
-public class OtpService implements SmsService {
+public class OtpService {
     private final TwilioSenderService twilioSenderService;
     private final VerificationService verificationService;
     private final String fromPhoneNumber;
     private static final int RANDOM_UPPER_LIMIT = 900000;
     private static final int RANDOM_LOWER_LIMIT = 100000;
 
+    /**
+     * Instantiates a new Otp service.
+     *
+     * @param fromPhoneNumber     the from phone number
+     * @param twilioSenderService the twilio sender service
+     * @param verificationService the verification service
+     */
     public OtpService(
             @Value("${twilio.sender-number}") final String fromPhoneNumber,
             final TwilioSenderService twilioSenderService,
@@ -36,12 +43,13 @@ public class OtpService implements SmsService {
         return String.valueOf(otp);
     }
 
+
     /**
-     * Send SMS message.
+     * Send string.
      *
-     * @param otpRequestDto object transfer object for OTP request
+     * @param otpRequestDto the otp request dto
+     * @return the string
      */
-    @Override
     public String send(OtpRequestDto otpRequestDto) {
         String otp = generateOtp();
         String receiverPhoneNumber = otpRequestDto.toPhoneNumber();
