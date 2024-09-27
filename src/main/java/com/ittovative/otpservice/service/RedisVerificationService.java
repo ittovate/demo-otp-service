@@ -9,10 +9,6 @@ import org.springframework.stereotype.Service;
 import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
-
-/**
- * The type Redis verification service.
- */
 @Service
 @Primary
 public class RedisVerificationService implements VerificationService {

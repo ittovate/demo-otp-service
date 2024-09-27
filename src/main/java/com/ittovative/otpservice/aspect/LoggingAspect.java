@@ -11,7 +11,6 @@ import static com.ittovative.otpservice.util.AspectUtil.getClassName;
 import static com.ittovative.otpservice.util.AspectUtil.getMethodArgs;
 import static com.ittovative.otpservice.util.AspectUtil.getMethodName;
 
-
 @Aspect
 @Component
 public class LoggingAspect {

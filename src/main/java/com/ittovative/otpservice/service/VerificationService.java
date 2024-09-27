@@ -2,9 +2,6 @@ package com.ittovative.otpservice.service;
 
 import org.apache.coyote.BadRequestException;
 
-/**
- * The interface Verification service.
- */
 public interface VerificationService {
     /**
      * Sets user token.

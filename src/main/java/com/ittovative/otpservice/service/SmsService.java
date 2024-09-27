@@ -8,10 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
 
-
-/**
- * The type Sms service.
- */
 @Service
 public class SmsService implements OtpService {
     private final TwilioSenderService twilioSenderService;

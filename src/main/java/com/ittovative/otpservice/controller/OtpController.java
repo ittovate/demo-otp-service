@@ -17,9 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * The type Otp controller.
- */
 @RestController
 @RequestMapping("/api/v1/sms")
 public class OtpController {

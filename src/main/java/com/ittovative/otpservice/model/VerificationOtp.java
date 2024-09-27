@@ -5,13 +5,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import org.springframework.data.redis.core.RedisHash;
 
-
-/**
- * The type Verification otp.
- *
- * @param phoneNumber the phone number
- * @param token       the token
- */
 @RedisHash(value = RedisUtil.VERIFICATION_OTP_HASH)
 public record VerificationOtp(
         @NotBlank

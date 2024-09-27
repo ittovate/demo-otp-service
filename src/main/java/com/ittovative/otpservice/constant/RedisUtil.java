@@ -2,9 +2,6 @@ package com.ittovative.otpservice.constant;
 
 import org.springframework.beans.factory.annotation.Value;
 
-/**
- * The type Redis util.
- */
 public final class RedisUtil {
     public static final String VERIFICATION_OTP_HASH = "VerificationOtp";
 

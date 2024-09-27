@@ -17,10 +17,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-
-/**
- * The type General exception handler.
- */
 @ControllerAdvice
 public class GeneralExceptionHandler {
     private static final Logger LOGGER = LoggerFactory.getLogger(GeneralExceptionHandler.class);

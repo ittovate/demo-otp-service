@@ -1,10 +1,5 @@
 package com.ittovative.otpservice.util;
 
-/**
- * The type Api response.
- *
- * @param <T> the type parameter
- */
 public class ApiResponse<T> {
     private final T body;
     private final int statusCode;
