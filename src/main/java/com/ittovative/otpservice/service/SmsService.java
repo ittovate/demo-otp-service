@@ -1,7 +1,7 @@
 package com.ittovative.otpservice.service;
 
 import com.ittovative.otpservice.dto.OtpRequestDto;
-import com.ittovative.otpservice.dto.VerifyOtpRequestDto;
+import com.ittovative.otpservice.dto.VerifyTokenRequestDto;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -55,12 +55,12 @@ public class SmsService implements OtpService {
     /**
      * Verify token.
      *
-     * @param verifyOtpRequestDto the verify otp request dto
+     * @param verifyTokenRequestDto the verify otp request dto
      * @throws BadRequestException the bad request exception
      */
-    public void verifyToken(VerifyOtpRequestDto verifyOtpRequestDto) throws BadRequestException {
-        String phoneNumber = verifyOtpRequestDto.phoneNumber();
-        String token = verifyOtpRequestDto.token();
+    public void verifyToken(VerifyTokenRequestDto verifyTokenRequestDto) throws BadRequestException {
+        String phoneNumber = verifyTokenRequestDto.phoneNumber();
+        String token = verifyTokenRequestDto.token();
         verificationService.validateUserToken(phoneNumber, token);
     }
 }

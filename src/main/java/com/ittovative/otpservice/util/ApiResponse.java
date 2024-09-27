@@ -1,12 +1,18 @@
 package com.ittovative.otpservice.util;
 
+import java.time.LocalDateTime;
+
 public class ApiResponse<T> {
-    private final T body;
     private final int statusCode;
     private final String message;
+    private final LocalDateTime timestamp;
+    private final T body;
 
-    public T getBody() {
-        return body;
+    public ApiResponse(int statusCode, String message, T body) {
+        this.statusCode = statusCode;
+        this.message = message;
+        this.timestamp = LocalDateTime.now();
+        this.body = body;
     }
 
     public int getStatusCode() {
@@ -17,10 +23,11 @@ public class ApiResponse<T> {
         return message;
     }
 
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
 
-    public ApiResponse(T body, int statusCode, String message) {
-        this.body = body;
-        this.statusCode = statusCode;
-        this.message = message;
+    public T getBody() {
+        return body;
     }
 }

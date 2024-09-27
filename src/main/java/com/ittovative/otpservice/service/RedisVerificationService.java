@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
+import static com.ittovative.otpservice.constant.ApiResponseConstant.INVALID_TOKEN;
+import static com.ittovative.otpservice.constant.ApiResponseConstant.TOKEN_EXPIRED;
+
 @Service
 @Primary
 public class RedisVerificationService implements VerificationService {
@@ -42,10 +45,10 @@ public class RedisVerificationService implements VerificationService {
             throws BadRequestException {
         String actualToken = (String) redisTemplate.opsForValue().get(userPhone);
         if (actualToken == null) {
-            throw new NoSuchElementException("This phone did receive a token before or it got expired!");
+            throw new NoSuchElementException(TOKEN_EXPIRED);
         }
         if (!actualToken.equals(receivedToken)) {
-            throw new BadRequestException("Invalid token!");
+            throw new BadRequestException(INVALID_TOKEN);
         }
         redisTemplate.opsForValue().getAndDelete(userPhone);
     }
