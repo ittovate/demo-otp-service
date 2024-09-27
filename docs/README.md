@@ -16,7 +16,7 @@
 3. [Configure Environment Variables](#-setting-up-environment-variables).
 4. Build the Project `mvn clean install`.
 5. Run the project `mvn spring-boot:run`.
-6. [Try it out!](docs/usage.md)
+6. [Try it out!](usage.md)
 
 # ⚙ Setting Up Environment Variables
 1. Duplicate `src/main/resources/keys.env` file and rename the copy to `.env`.
