@@ -3,8 +3,6 @@ package com.ittovative.otpservice.exception;
 import com.ittovative.otpservice.util.ApiResponse;
 import com.twilio.exception.TwilioException;
 import org.apache.coyote.BadRequestException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -21,12 +19,6 @@ import static com.ittovative.otpservice.constant.ApiResponseConstant.VALIDATION_
 
 @ControllerAdvice
 public class GeneralExceptionHandler {
-    private static final Logger LOGGER = LoggerFactory.getLogger(GeneralExceptionHandler.class);
-
-    public Logger getLogger() {
-        return LOGGER;
-    }
-
     /**
      * Handle validation exceptions response entity.
      *
