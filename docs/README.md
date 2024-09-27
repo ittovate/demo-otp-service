@@ -27,9 +27,3 @@
    - `TWILIO_VERIFIED_NUMBER` is your verified number used in your Twilio account.
    - `REDIS_HOST` & `REDIS_PORT` are "Public endpoint" under "General" section (in the database settings).
    - `REDIS_PASSWORD` is under "Security" section (in the database settings).
-
-# 🙋‍♂️ Contribution
-- [Code Quality And Style](https://github.com/Ahmad-AlDeeb/ittovative-knowledge-base/blob/master/%F0%9F%94%B4%20Demos/Code%20Quality%20And%20Style.md).
-- **Testing**: Docker must be installed and running to run tests since we are using [testcontainers](https://testcontainers.com/).
-- [Git Management](https://github.com/Ahmad-AlDeeb/ittovative-knowledge-base/blob/master/%F0%9F%94%B4%20Demos/Git%20Management%20Policy.md).
-- [Documentation](https://github.com/Ahmad-AlDeeb/ittovative-knowledge-base/blob/master/%F0%9F%94%B4%20Demos/Documentation.md).
