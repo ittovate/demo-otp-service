@@ -2,9 +2,6 @@ package com.ittovative.otpservice.service;
 
 import com.ittovative.otpservice.dto.OtpRequestDto;
 
-/**
- * The interface Otp service.
- */
 public interface OtpService {
     /**
      * Send string.

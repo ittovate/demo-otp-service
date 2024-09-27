@@ -7,10 +7,6 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.HashMap;
 
-
-/**
- * The type Verification config.
- */
 @Configuration
 public class VerificationConfig {
 

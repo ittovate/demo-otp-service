@@ -6,10 +6,6 @@ import org.springframework.stereotype.Service;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-
-/**
- * The type In memory verification service.
- */
 @Service
 public class InMemoryVerificationService implements VerificationService {
     private final Map<String, String> usersTokens;

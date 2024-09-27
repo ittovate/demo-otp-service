@@ -7,10 +7,6 @@ import org.springframework.context.annotation.Scope;
 import java.util.HashMap;
 import java.util.Map;
 
-
-/**
- * Collections config.
- */
 @Configuration
 public class CollectionsConfig {
     /**

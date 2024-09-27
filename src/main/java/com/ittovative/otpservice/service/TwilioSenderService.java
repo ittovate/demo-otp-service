@@ -4,9 +4,6 @@ import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
 import org.springframework.stereotype.Service;
 
-/**
- * The type Twilio sender service.
- */
 @Service
 public class TwilioSenderService {
     /**

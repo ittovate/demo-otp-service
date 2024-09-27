@@ -3,11 +3,6 @@ package com.ittovative.otpservice.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
-/**
- * The type Otp request dto.
- *
- * @param toPhoneNumber The receiver phone number.
- */
 public record OtpRequestDto(
         @NotBlank
         @Pattern(
