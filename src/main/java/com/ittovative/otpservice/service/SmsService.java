@@ -16,7 +16,6 @@ public class SmsService implements OtpService {
     private static final int RANDOM_UPPER_LIMIT = 900000;
     private static final int RANDOM_LOWER_LIMIT = 100000;
 
-
     public SmsService(
             @Value("${twilio.sender-number}") final String fromPhoneNumber,
             final TwilioSenderService twilioSenderService,
@@ -27,7 +26,7 @@ public class SmsService implements OtpService {
     }
 
     /**
-     * Generate otp string.
+     * Generate OTP string.
      *
      * @return the string
      */
