@@ -27,8 +27,16 @@ jobs:
         cache: maven
 
     # Build
-    - name: Building
+    - name: Build
       run: mvn -B package
+      env:
+        REDIS_HOST: ${{ secrets.REDIS_HOST }}
+        REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }}
+        REDIS_PORT: ${{ secrets.REDIS_PORT }}
+        TWILIO_API_KEY: ${{ secrets.TWILIO_API_KEY }}
+        TWILIO_API_TOKEN: ${{ secrets.TWILIO_API_TOKEN }}
+        TWILIO_SENDER_NUMBER: ${{ secrets.TWILIO_SENDER_NUMBER }}
+        TWILIO_VERIFIED_NUMBER: ${{ secrets.TWILIO_VERIFIED_NUMBER }}
 
   Test:
     runs-on: ubuntu-latest
@@ -42,26 +50,25 @@ jobs:
         distribution: 'temurin'
         cache: maven
 
-#    # Install Docker Compose
-#    - name: Install Docker Compose
-#      run: |
-#        sudo apt-get update
-#        sudo apt-get install docker-compose -y
-
-    # Install Docker
-    - name: Install Docker
-      run: |
-        sudo apt-get update
-        sudo apt-get install docker.io -y
-        sudo systemctl start docker
-        sudo systemctl enable docker
-        sudo usermod -aG docker $USER
-
+    - name: Setup Testcontainers Cloud Client
+      uses: atomicjar/testcontainers-cloud-setup-action@v1
+      with:
+          token: ${{ secrets.TC_CLOUD_TOKEN }}
+    
     # Test
-    - name: Testing
+    - name: Test
       run: mvn test
+      env:
+        REDIS_HOST: ${{ secrets.REDIS_HOST }}
+        REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }}
+        REDIS_PORT: ${{ secrets.REDIS_PORT }}
+        TWILIO_API_KEY: ${{ secrets.TWILIO_API_KEY }}
+        TWILIO_API_TOKEN: ${{ secrets.TWILIO_API_TOKEN }}
+        TWILIO_SENDER_NUMBER: ${{ secrets.TWILIO_SENDER_NUMBER }}
+        TWILIO_VERIFIED_NUMBER: ${{ secrets.TWILIO_VERIFIED_NUMBER }}
+        
 
-  Code-Quality:
+  Checkstyle:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
