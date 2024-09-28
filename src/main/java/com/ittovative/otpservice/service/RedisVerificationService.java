@@ -1,6 +1,8 @@
 package com.ittovative.otpservice.service;
 
 import com.ittovative.otpservice.constant.RedisConstant;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import org.apache.coyote.BadRequestException;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -9,8 +11,9 @@ import org.springframework.stereotype.Service;
 import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
-import static com.ittovative.otpservice.constant.ApiResponseConstant.INVALID_TOKEN;
-import static com.ittovative.otpservice.constant.ApiResponseConstant.TOKEN_EXPIRED;
+import static com.ittovative.otpservice.constant.ExceptionConstant.INVALID_TOKEN;
+import static com.ittovative.otpservice.constant.ExceptionConstant.INVALID_TOKEN_FORMAT;
+import static com.ittovative.otpservice.constant.ExceptionConstant.TOKEN_EXPIRED;
 
 @Service
 @Primary
@@ -41,15 +44,19 @@ public class RedisVerificationService implements VerificationService {
      * @param receivedToken the received token
      */
     @Override
-    public void validateUserToken(String userPhone, String receivedToken)
+        public void validateUserToken(String userPhone, String receivedToken)
             throws BadRequestException {
+
+        @NotBlank @Pattern(regexp = "^\\d{6}$", message = INVALID_TOKEN_FORMAT)
         String actualToken = (String) redisTemplate.opsForValue().get(userPhone);
+
         if (actualToken == null) {
             throw new NoSuchElementException(TOKEN_EXPIRED);
         }
         if (!actualToken.equals(receivedToken)) {
             throw new BadRequestException(INVALID_TOKEN);
         }
+
         redisTemplate.opsForValue().getAndDelete(userPhone);
     }
 }

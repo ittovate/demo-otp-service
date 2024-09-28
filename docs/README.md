@@ -25,16 +25,16 @@
 - Twilio Account (along with your verified number).
 
 # ⚡ Running the Project
-1. **Clone the repository**: 
+1. **Clone the repository**:
     ```bash
     git clone https://github.com/ittovate/otp-service.git
     ```
-   
+
 2. **Navigate to the project directory**:
     ```bash
     cd demo-otp-service
     ```
-   
+
 3. **Configure environment variables**:
     1. Duplicate `src/main/resources/keys.env` file and rename the copy to `.env`.
     2. Fill fields with values from your Twilio account and Redis account:
@@ -44,12 +44,12 @@
        - `TWILIO_VERIFIED_NUMBER` is your verified number used in your Twilio account.
        - `REDIS_HOST` & `REDIS_PORT` are "Public endpoint" under "General" section (in the database settings).
        - `REDIS_PASSWORD` is under "Security" section (in the database settings).
-       - 
-4. **Build and run the project**: 
+       -
+4. **Build and run the project**:
       ```bash
-      mvn clean install spring-boot:run 
+      mvn clean install spring-boot:run
       ```
 
 5. [**Try it out!**](http://localhost:8080/swagger-ui/index.html)
-  
+
 6. **Stop the project**: After testing, stop both demos by pressing `CTRL + C` in each terminal.

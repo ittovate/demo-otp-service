@@ -1,6 +1,8 @@
 package com.ittovative.otpservice.constant;
 
-public abstract class SwaggerConstant {
+import static com.ittovative.otpservice.constant.ExceptionConstant.UTILITY_CLASS_INSTANTIATION;
+
+public final class SwaggerConstant {
     public static final String TITLE = "OTP Service API";
     public static final String VERSION = "1.0";
     public static final String DESCRIPTION = "API to send OTP in SMS and verify it.";
@@ -82,4 +84,8 @@ public abstract class SwaggerConstant {
                 }
             }
             """;
+
+    private SwaggerConstant() {
+        throw new IllegalStateException(UTILITY_CLASS_INSTANTIATION);
+    }
 }

@@ -14,13 +14,8 @@ repos:
         language: system
         types: [ java ]
         pass_filenames: false
-#      - id: dependency-check # Scans the project for vulnerable dependencies.
-#        name: Dependency Check
-#        entry: mvn org.owasp:dependency-check-maven:check
-#        language: system
-#        pass_filenames: false
-#      - id: maven-test # Runs unit tests to ensure that your code changes don’t break any existing functionality.
-#        name: Maven Test
-#        entry: mvn test
-#        language: system
-#        pass_filenames: false
+      - id: maven-test
+        name: Maven Test
+        entry: mvn test
+        language: system
+        pass_filenames: false

@@ -1,7 +1,7 @@
 package com.ittovative.otpservice.service;
 
 import com.ittovative.otpservice.dto.OtpRequestDto;
-import com.ittovative.otpservice.dto.VerifyTokenRequestDto;
+import com.ittovative.otpservice.dto.TokenDto;
 import com.twilio.exception.ApiException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -52,7 +52,7 @@ class OtpServiceTest {
     void sendSuccessfulMessage() {
         String actualToken = otpService.send(new OtpRequestDto(verifiedNumber));
         Assertions.assertDoesNotThrow(
-                () -> otpService.verifyToken(new VerifyTokenRequestDto(verifiedNumber, actualToken)));
+                () -> otpService.verifyToken(new TokenDto(verifiedNumber, actualToken)));
     }
 
     @Test
