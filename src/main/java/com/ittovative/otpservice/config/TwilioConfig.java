@@ -9,19 +9,19 @@ import org.springframework.context.annotation.Configuration;
 public class TwilioConfig {
     @Value("${twilio.sid}")
     private String accountSid;
+
     @Value("${twilio.auth-token}")
     private String authToken;
 
-    public String getAccountSid() {
-        return accountSid;
-    }
+    @Value("${twilio.verified-number}")
+    private static String verifiedNumber;
 
-    public String getAuthToken() {
-        return authToken;
+    public static String getVerifiedNumber() {
+        return verifiedNumber;
     }
 
     /**
-     * Initialize.
+     * Initialize Twilio with account SID and auth token.
      */
     @PostConstruct
     public void initialize() {

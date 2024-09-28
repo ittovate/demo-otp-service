@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-import static com.ittovative.otpservice.constant.ApiResponseConstant.VALIDATION_ERROR;
+import static com.ittovative.otpservice.constant.ExceptionConstant.VALIDATION_ERROR;
 
 @ControllerAdvice
 public class GeneralExceptionHandler {

@@ -1,5 +1,7 @@
 package com.ittovative.otpservice.constant;
 
+import static com.ittovative.otpservice.constant.ExceptionConstant.UTILITY_CLASS_INSTANTIATION;
+
 public final class HttpConstant {
     public static final String APPLICATION_JSON = "application/json";
 
@@ -17,5 +19,6 @@ public final class HttpConstant {
     public static final String TOO_MANY_REQUESTS = "429";
 
     private HttpConstant() {
+        throw new IllegalStateException(UTILITY_CLASS_INSTANTIATION);
     }
 }

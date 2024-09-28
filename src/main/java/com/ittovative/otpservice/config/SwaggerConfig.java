@@ -1,14 +1,13 @@
 package com.ittovative.otpservice.config;
 
 import com.ittovative.otpservice.dto.OtpRequestDto;
-import com.ittovative.otpservice.dto.VerifyTokenRequestDto;
+import com.ittovative.otpservice.dto.TokenDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import jakarta.validation.Valid;
 import org.apache.coyote.BadRequestException;
 import org.springframework.http.ResponseEntity;
 
@@ -112,5 +111,5 @@ public interface SwaggerConfig {
             }
     )
     ResponseEntity<com.ittovative.otpservice.util.ApiResponse<String>> verify(
-            VerifyTokenRequestDto verifyTokenRequestDto) throws BadRequestException;
+            TokenDto tokenDto) throws BadRequestException;
 }
