@@ -50,12 +50,6 @@ jobs:
         distribution: 'temurin'
         cache: maven
 
-#    # Install Docker Compose
-#    - name: Install Docker Compose
-#      run: |
-#        sudo apt-get update
-#        sudo apt-get install docker-compose -y
-
     # Install Docker
     - name: Install Docker
       run: |
@@ -64,6 +58,12 @@ jobs:
         sudo systemctl start docker
         sudo systemctl enable docker
         sudo usermod -aG docker $USER
+
+#    # Install Docker Compose
+    - name: Install Docker Compose
+      run: |
+        sudo apt-get update
+        sudo apt-get install docker-compose -y
 
     # Test
     - name: Testing
