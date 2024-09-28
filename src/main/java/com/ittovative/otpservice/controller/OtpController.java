@@ -3,7 +3,7 @@ package com.ittovative.otpservice.controller;
 import com.ittovative.otpservice.config.SwaggerConfig;
 import com.ittovative.otpservice.dto.OtpRequestDto;
 import com.ittovative.otpservice.dto.VerifyTokenRequestDto;
-import com.ittovative.otpservice.service.SmsService;
+import com.ittovative.otpservice.service.OtpService;
 import com.ittovative.otpservice.util.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -24,11 +24,11 @@ import static com.ittovative.otpservice.constant.SwaggerConstant.CONTROLLER_NAME
 @RequestMapping("/api/v1/sms")
 @Tag(name = CONTROLLER_NAME, description = CONTROLLER_DESCRIPTION)
 public class OtpController implements SwaggerConfig {
-    private final SmsService smsService;
+    private final OtpService otpService;
 
 
-    public OtpController(SmsService otpService) {
-        this.smsService = otpService;
+    public OtpController(OtpService otpService) {
+        this.otpService = otpService;
     }
 
     /**
@@ -39,7 +39,7 @@ public class OtpController implements SwaggerConfig {
      */
     @PostMapping
     public ResponseEntity<ApiResponse<String>> sendMessage(@RequestBody @Valid OtpRequestDto otpRequestDto) {
-        smsService.send(otpRequestDto);
+        otpService.send(otpRequestDto);
 
         ApiResponse<String> apiResponse = new ApiResponse<>(HttpStatus.CREATED.value(), OTP_SENT, null);
         return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
@@ -55,7 +55,7 @@ public class OtpController implements SwaggerConfig {
     @PostMapping("/verify")
     public ResponseEntity<ApiResponse<String>> verify(@RequestBody @Valid VerifyTokenRequestDto verifyTokenRequestDto)
             throws BadRequestException {
-        smsService.verifyToken(verifyTokenRequestDto);
+        otpService.verifyToken(verifyTokenRequestDto);
 
         ApiResponse<String> apiResponse = new ApiResponse<>(HttpStatus.OK.value(), TOKEN_VERIFIED, null);
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);

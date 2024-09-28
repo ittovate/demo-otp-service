@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
-public class CollectionsConfig {
+public class CollectionConfig {
     /**
      * Map bean.
      *

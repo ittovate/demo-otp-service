@@ -7,6 +7,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import static com.ittovative.otpservice.constant.AspectConstant.AFTER_RETURN_MESSAGE;
+import static com.ittovative.otpservice.constant.AspectConstant.AFTER_THROW_MESSAGE;
+import static com.ittovative.otpservice.constant.AspectConstant.BEFORE_MESSAGE;
 import static com.ittovative.otpservice.util.AspectUtil.getClassName;
 import static com.ittovative.otpservice.util.AspectUtil.getMethodArgs;
 import static com.ittovative.otpservice.util.AspectUtil.getMethodName;
@@ -30,14 +33,14 @@ public class LoggingAspect {
         StringBuilder args = getMethodArgs(joinPoint);
         Object returnVal = null;
 
-        LOGGER.info("Executing ===> {}.{} with arguments: [{}]", className, methodName, args);
+        LOGGER.info(BEFORE_MESSAGE, className, methodName, args);
         try {
             returnVal = joinPoint.proceed();
         } catch (Throwable throwable) {
-            LOGGER.error("Exception {} in ===> {}.{} with arguments: [{}]", throwable, className, methodName, args);
+            LOGGER.error(AFTER_THROW_MESSAGE, throwable, className, methodName, args);
             throw throwable;
         }
-        LOGGER.info("Finished ===> {}.{} with arguments: [{}] and returned {}", className, methodName, args, returnVal);
+        LOGGER.info(AFTER_RETURN_MESSAGE, className, methodName, args, returnVal);
 
         return returnVal;
     }

@@ -22,7 +22,7 @@ import org.testcontainers.utility.DockerImageName;
 
 @SpringBootTest
 @Testcontainers
-class SmsServiceTest {
+class OtpServiceTest {
     @Value("${twilio.verified-number}")
     private String verifiedNumber;
     private static GenericContainer redis;
@@ -33,7 +33,7 @@ class SmsServiceTest {
     @Mock
     private RedisConnectionFactory redisConnectionFactoryMock;
     @SpyBean
-    private SmsService smsService;
+    private OtpService otpService;
 
     @BeforeAll
     static void beforeAll() {
@@ -50,28 +50,28 @@ class SmsServiceTest {
     @Disabled("To avoid Free Twilio Limit")
     @DisplayName("Send ")
     void sendSuccessfulMessage() {
-        String actualToken = smsService.send(new OtpRequestDto(verifiedNumber));
+        String actualToken = otpService.send(new OtpRequestDto(verifiedNumber));
         Assertions.assertDoesNotThrow(
-                () -> smsService.verifyToken(new VerifyTokenRequestDto(verifiedNumber, actualToken)));
+                () -> otpService.verifyToken(new VerifyTokenRequestDto(verifiedNumber, actualToken)));
     }
 
     @Test
     @DisplayName("Sending an unsuccessful message : Too short of a Phone Number")
     void sendMessageToAWrongPhoneNumber() {
-        Assertions.assertThrows(Exception.class, () -> smsService.send(new OtpRequestDto("+1111")));
+        Assertions.assertThrows(Exception.class, () -> otpService.send(new OtpRequestDto("+1111")));
     }
 
     @Test
     @DisplayName("Sending an unsuccessful message : Sender and Receiver have the same Phone Number")
     void sendMessageToYourself() {
         Assertions.assertThrows(
-                Exception.class, () -> smsService.send(new OtpRequestDto("+15075541680")));
+                Exception.class, () -> otpService.send(new OtpRequestDto("+15075541680")));
     }
 
     @Test
     @DisplayName("Sending an unsuccessful message : Sending without a code at the start of the message")
     void sendToAnUncodedPhoneNumber() {
         Assertions.assertThrows(
-                ApiException.class, () -> smsService.send(new OtpRequestDto("201007540077")));
+                ApiException.class, () -> otpService.send(new OtpRequestDto("201007540077")));
     }
 }
