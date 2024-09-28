@@ -9,9 +9,6 @@ import static com.ittovative.otpservice.constant.ApiResponseConstant.INVALID_PHO
 
 @RedisHash(value = RedisConstant.VERIFICATION_OTP_HASH)
 public record VerificationOtp(
-        @NotBlank
-        @Pattern(regexp = "^[+0-9-]+$",
-                message = INVALID_PHONE_NUMBER_FORMAT)
-        String phoneNumber,
+        @NotBlank @Pattern(regexp = "^[+0-9-]+$", message = INVALID_PHONE_NUMBER_FORMAT) String phoneNumber,
         String token) {
 }
