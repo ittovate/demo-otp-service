@@ -50,10 +50,25 @@ jobs:
         distribution: 'temurin'
         cache: maven
 
-    - name: Setup Testcontainers Cloud Client
-      uses: atomicjar/testcontainers-cloud-setup-action@v1
-      with:
-          token: ${{ secrets.TC_CLOUD_TOKEN }}
+    # - name: Setup Testcontainers Cloud Client
+    #   uses: atomicjar/testcontainers-cloud-setup-action@v1
+    #   with:
+    #       token: ${{ secrets.TC_CLOUD_TOKEN }}
+
+    # Check Docker Service
+    - name: Check Docker version
+      run: docker --version
+
+    - name: Docker info
+      run: docker info
+    
+    # Testcontainers
+    - name: Set up Testcontainers environment
+      run: |
+        sudo sysctl -w net.ipv4.ip_forward=1
+        sudo mkdir -p /etc/docker
+        echo '{ "features": { "buildkit": false } }' | sudo tee /etc/docker/daemon.json
+        sudo service docker restart
     
     # Test
     - name: Test
