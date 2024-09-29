@@ -1,7 +1,8 @@
 package com.ittovative.otpservice.config;
 
-import com.ittovative.otpservice.dto.OtpRequestDto;
-import com.ittovative.otpservice.dto.TokenDto;
+import com.ittovative.otpservice.dto.OTPRequestDTO;
+import com.ittovative.otpservice.dto.TokenDTO;
+import com.ittovative.otpservice.util.APIResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
@@ -9,13 +10,12 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.apache.coyote.BadRequestException;
-import org.springframework.http.ResponseEntity;
 
-import static com.ittovative.otpservice.constant.HttpConstant.APPLICATION_JSON;
-import static com.ittovative.otpservice.constant.HttpConstant.BAD_REQUEST;
-import static com.ittovative.otpservice.constant.HttpConstant.CREATED;
-import static com.ittovative.otpservice.constant.HttpConstant.NOT_FOUND;
-import static com.ittovative.otpservice.constant.HttpConstant.OK;
+import static com.ittovative.otpservice.constant.HTTPConstant.APPLICATION_JSON;
+import static com.ittovative.otpservice.constant.HTTPConstant.BAD_REQUEST;
+import static com.ittovative.otpservice.constant.HTTPConstant.CREATED;
+import static com.ittovative.otpservice.constant.HTTPConstant.NOT_FOUND;
+import static com.ittovative.otpservice.constant.HTTPConstant.OK;
 import static com.ittovative.otpservice.constant.SwaggerConstant.INVALID_PHONE_NUMBER_FORMAT_RESPONSE_DESCRIPTION;
 import static com.ittovative.otpservice.constant.SwaggerConstant.INVALID_PHONE_NUMBER_FORMAT_RESPONSE_EXAMPLE;
 import static com.ittovative.otpservice.constant.SwaggerConstant.INVALID_TOKEN_RESPONSE_DESCRIPTION;
@@ -43,7 +43,7 @@ public interface SwaggerConfig {
                     description = SEND_OTP_REQUEST_BODY_DESCRIPTION,
                     content = @Content(
                             mediaType = APPLICATION_JSON,
-                            schema = @Schema(implementation = OtpRequestDto.class),
+                            schema = @Schema(implementation = OTPRequestDTO.class),
                             examples = @ExampleObject(value = SEND_OTP_REQUEST_BODY_EXAMPLE)
                     )
             ),
@@ -53,7 +53,7 @@ public interface SwaggerConfig {
                             description = OTP_SENT_RESPONSE_DESCRIPTION,
                             content = @Content(
                                     mediaType = APPLICATION_JSON,
-                                    schema = @Schema(implementation = com.ittovative.otpservice.util.ApiResponse.class),
+                                    schema = @Schema(implementation = APIResponse.class),
                                     examples = @ExampleObject(value = OTP_SENT_RESPONSE_EXAMPLE)
                             )
                     ),
@@ -62,13 +62,13 @@ public interface SwaggerConfig {
                             description = INVALID_PHONE_NUMBER_FORMAT_RESPONSE_DESCRIPTION,
                             content = @Content(
                                     mediaType = APPLICATION_JSON,
-                                    schema = @Schema(implementation = com.ittovative.otpservice.util.ApiResponse.class),
+                                    schema = @Schema(implementation = APIResponse.class),
                                     examples = @ExampleObject(value = INVALID_PHONE_NUMBER_FORMAT_RESPONSE_EXAMPLE)
                             )
                     )
             }
     )
-    ResponseEntity<com.ittovative.otpservice.util.ApiResponse<String>> sendMessage(OtpRequestDto otpRequestDto);
+    APIResponse<String> sendMessage(OTPRequestDTO otpRequestDto);
 
     @Operation(summary = VERIFY_TOKEN_SUMMARY, description = VERIFY_TOKEN_DESCRIPTION,
             requestBody = @RequestBody(
@@ -76,7 +76,7 @@ public interface SwaggerConfig {
                     description = VERIFY_TOKEN_REQUEST_BODY_DESCRIPTION,
                     content = @Content(
                             mediaType = APPLICATION_JSON,
-                            schema = @Schema(implementation = OtpRequestDto.class),
+                            schema = @Schema(implementation = OTPRequestDTO.class),
                             examples = @ExampleObject(value = VERIFY_TOKEN_REQUEST_BODY_EXAMPLE)
                     )
             ),
@@ -86,7 +86,7 @@ public interface SwaggerConfig {
                             description = TOKEN_VERIFIED_RESPONSE_DESCRIPTION,
                             content = @Content(
                                     mediaType = APPLICATION_JSON,
-                                    schema = @Schema(implementation = com.ittovative.otpservice.util.ApiResponse.class),
+                                    schema = @Schema(implementation = APIResponse.class),
                                     examples = @ExampleObject(value = TOKEN_VERIFIED_RESPONSE_EXAMPLE)
                             )
                     ),
@@ -95,7 +95,7 @@ public interface SwaggerConfig {
                             description = TOKEN_EXPIRED_RESPONSE_DESCRIPTION,
                             content = @Content(
                                     mediaType = APPLICATION_JSON,
-                                    schema = @Schema(implementation = com.ittovative.otpservice.util.ApiResponse.class),
+                                    schema = @Schema(implementation = APIResponse.class),
                                     examples = @ExampleObject(value = TOKEN_EXPIRED_RESPONSE_EXAMPLE)
                             )
                     ),
@@ -104,12 +104,11 @@ public interface SwaggerConfig {
                             description = INVALID_TOKEN_RESPONSE_DESCRIPTION,
                             content = @Content(
                                     mediaType = APPLICATION_JSON,
-                                    schema = @Schema(implementation = com.ittovative.otpservice.util.ApiResponse.class),
+                                    schema = @Schema(implementation = APIResponse.class),
                                     examples = @ExampleObject(value = INVALID_TOKEN_RESPONSE_EXAMPLE)
                             )
                     ),
             }
     )
-    ResponseEntity<com.ittovative.otpservice.util.ApiResponse<String>> verify(
-            TokenDto tokenDto) throws BadRequestException;
+    APIResponse<String> verify(TokenDTO tokenDto) throws BadRequestException;
 }

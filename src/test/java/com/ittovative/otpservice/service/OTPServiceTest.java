@@ -1,7 +1,7 @@
 package com.ittovative.otpservice.service;
 
-import com.ittovative.otpservice.dto.OtpRequestDto;
-import com.ittovative.otpservice.dto.TokenDto;
+import com.ittovative.otpservice.dto.OTPRequestDTO;
+import com.ittovative.otpservice.dto.TokenDTO;
 import com.twilio.exception.ApiException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -22,7 +22,7 @@ import org.testcontainers.utility.DockerImageName;
 
 @SpringBootTest
 @Testcontainers
-class OtpServiceTest {
+class OTPServiceTest {
     @Value("${twilio.verified-number}")
     private String verifiedNumber;
     private static GenericContainer redis;
@@ -33,7 +33,7 @@ class OtpServiceTest {
     @Mock
     private RedisConnectionFactory redisConnectionFactoryMock;
     @SpyBean
-    private OtpService otpService;
+    private OTPService otpService;
 
     @BeforeAll
     static void beforeAll() {
@@ -50,28 +50,28 @@ class OtpServiceTest {
     @Disabled("To avoid Free Twilio Limit")
     @DisplayName("Send ")
     void sendSuccessfulMessage() {
-        String actualToken = otpService.send(new OtpRequestDto(verifiedNumber));
+        String actualToken = otpService.send(new OTPRequestDTO(verifiedNumber));
         Assertions.assertDoesNotThrow(
-                () -> otpService.verifyToken(new TokenDto(verifiedNumber, actualToken)));
+                () -> otpService.verifyToken(new TokenDTO(verifiedNumber, actualToken)));
     }
 
     @Test
     @DisplayName("Sending an unsuccessful message : Too short of a Phone Number")
     void sendMessageToAWrongPhoneNumber() {
-        Assertions.assertThrows(Exception.class, () -> otpService.send(new OtpRequestDto("+1111")));
+        Assertions.assertThrows(Exception.class, () -> otpService.send(new OTPRequestDTO("+1111")));
     }
 
     @Test
     @DisplayName("Sending an unsuccessful message : Sender and Receiver have the same Phone Number")
     void sendMessageToYourself() {
         Assertions.assertThrows(
-                Exception.class, () -> otpService.send(new OtpRequestDto("+15075541680")));
+                Exception.class, () -> otpService.send(new OTPRequestDTO("+15075541680")));
     }
 
     @Test
     @DisplayName("Sending an unsuccessful message : Sending without a code at the start of the message")
     void sendToAnUncodedPhoneNumber() {
         Assertions.assertThrows(
-                ApiException.class, () -> otpService.send(new OtpRequestDto("201007540077")));
+                ApiException.class, () -> otpService.send(new OTPRequestDTO("201007540077")));
     }
 }
