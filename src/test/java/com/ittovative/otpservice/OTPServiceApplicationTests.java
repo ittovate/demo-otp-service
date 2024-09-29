@@ -6,7 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 @DisplayName("Main Application")
-class OtpServiceApplicationTests {
+class OTPServiceApplicationTests {
 
     @Test
     @DisplayName("Load application context")

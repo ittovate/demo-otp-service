@@ -1,7 +1,7 @@
 package com.ittovative.otpservice.service;
 
-import com.ittovative.otpservice.dto.OtpRequestDto;
-import com.ittovative.otpservice.dto.TokenDto;
+import com.ittovative.otpservice.dto.OTPRequestDTO;
+import com.ittovative.otpservice.dto.TokenDTO;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.security.SecureRandom;
 
 @Service
-public class OtpService {
+public class OTPService {
     private final TwilioSenderService twilioSenderService;
     private final VerificationService verificationService;
     private final String fromPhoneNumber;
@@ -23,7 +23,7 @@ public class OtpService {
      * @param twilioSenderService the twilio sender service
      * @param verificationService the verification service
      */
-    public OtpService(
+    public OTPService(
             @Value("${twilio.sender-number}") final String fromPhoneNumber,
             final TwilioSenderService twilioSenderService,
             final VerificationService verificationService) {
@@ -50,7 +50,7 @@ public class OtpService {
      * @param otpRequestDto the otp request dto
      * @return the string
      */
-    public String send(OtpRequestDto otpRequestDto) {
+    public String send(OTPRequestDTO otpRequestDto) {
         String otp = generateOtp();
         String receiverPhoneNumber = otpRequestDto.toPhoneNumber();
         String smsMessage = "Here is your otp : " + otp;
@@ -65,7 +65,7 @@ public class OtpService {
      * @param tokenDto the verify otp request dto
      * @throws BadRequestException the bad request exception
      */
-    public void verifyToken(TokenDto tokenDto) throws BadRequestException {
+    public void verifyToken(TokenDTO tokenDto) throws BadRequestException {
         String phoneNumber = tokenDto.phoneNumber();
         String token = tokenDto.token();
         verificationService.validateUserToken(phoneNumber, token);

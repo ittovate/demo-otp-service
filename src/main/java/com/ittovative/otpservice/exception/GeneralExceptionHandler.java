@@ -10,7 +10,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.context.request.WebRequest;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,7 +20,7 @@ public class GeneralExceptionHandler {
     /**
      * Handle validation exceptions response entity.
      *
-     * @param exception  the exception
+     * @param exception the exception
      * @return the response entity
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -39,13 +38,14 @@ public class GeneralExceptionHandler {
                             errors.put(fieldName, errorMessage);
                         });
 
-        return ResponseUtil.createUnifiedResponse(HttpStatus.BAD_REQUEST.value(), ExceptionConstant.VALIDATION_ERROR, errors);
+        return ResponseUtil.createUnifiedResponse(
+                HttpStatus.BAD_REQUEST.value(), ExceptionConstant.VALIDATION_ERROR, errors);
     }
 
     /**
      * Handle response entity.
      *
-     * @param exception  the exception
+     * @param exception the exception
      * @return the response entity
      */
     @ExceptionHandler(NoSuchElementException.class)
@@ -58,11 +58,11 @@ public class GeneralExceptionHandler {
     /**
      * Handle response entity.
      *
-     * @param exception  the exception
+     * @param exception the exception
      * @return the response entity
      */
     @ExceptionHandler(TwilioException.class)
-    APIResponse<String> handle(TwilioException exception, WebRequest webRequest) {
+    APIResponse<String> handle(TwilioException exception) {
         return ResponseUtil.createUnifiedResponse(HttpStatus.BAD_REQUEST.value(),
                 exception.getMessage(), null);
     }
@@ -70,7 +70,7 @@ public class GeneralExceptionHandler {
     /**
      * Handle response entity.
      *
-     * @param exception  the exception
+     * @param exception the exception
      * @return the response entity
      */
     @ExceptionHandler(BadRequestException.class)
@@ -83,7 +83,7 @@ public class GeneralExceptionHandler {
     /**
      * Handle response entity.
      *
-     * @param exception  the exception
+     * @param exception the exception
      * @return the response entity
      */
     @ExceptionHandler(Exception.class)

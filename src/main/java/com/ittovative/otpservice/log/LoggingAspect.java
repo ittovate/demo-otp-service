@@ -1,4 +1,4 @@
-package com.ittovative.otpservice.aspect;
+package com.ittovative.otpservice.log;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;

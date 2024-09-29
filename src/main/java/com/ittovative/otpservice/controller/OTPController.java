@@ -1,11 +1,11 @@
 package com.ittovative.otpservice.controller;
 
 import com.ittovative.otpservice.config.SwaggerConfig;
-import com.ittovative.otpservice.constant.ApiResponseConstant;
+import com.ittovative.otpservice.constant.APIResponseConstant;
 import com.ittovative.otpservice.constant.SwaggerConstant;
-import com.ittovative.otpservice.dto.OtpRequestDto;
-import com.ittovative.otpservice.dto.TokenDto;
-import com.ittovative.otpservice.service.OtpService;
+import com.ittovative.otpservice.dto.OTPRequestDTO;
+import com.ittovative.otpservice.dto.TokenDTO;
+import com.ittovative.otpservice.service.OTPService;
 import com.ittovative.otpservice.util.APIResponse;
 import com.ittovative.otpservice.util.ResponseUtil;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -20,10 +20,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/sms")
 @Tag(name = SwaggerConstant.CONTROLLER_NAME, description = SwaggerConstant.CONTROLLER_DESCRIPTION)
-public class OtpController implements SwaggerConfig {
-    private final OtpService otpService;
+public class OTPController implements SwaggerConfig {
+    private final OTPService otpService;
 
-    public OtpController(OtpService otpService) {
+    public OTPController(OTPService otpService) {
         this.otpService = otpService;
     }
 
@@ -35,9 +35,9 @@ public class OtpController implements SwaggerConfig {
      */
     @Override
     @PostMapping
-    public APIResponse<String> sendMessage(@RequestBody @Valid OtpRequestDto otpRequestDto) {
+    public APIResponse<String> sendMessage(@RequestBody @Valid OTPRequestDTO otpRequestDto) {
         otpService.send(otpRequestDto);
-        return ResponseUtil.createUnifiedResponse(HttpStatus.CREATED.value(), ApiResponseConstant.OTP_SENT, null);
+        return ResponseUtil.createUnifiedResponse(HttpStatus.CREATED.value(), APIResponseConstant.OTP_SENT, null);
     }
 
     /**
@@ -49,9 +49,9 @@ public class OtpController implements SwaggerConfig {
      */
     @Override
     @PostMapping("/verify")
-    public APIResponse<String> verify(@RequestBody @Valid TokenDto tokenDto)
+    public APIResponse<String> verify(@RequestBody @Valid TokenDTO tokenDto)
             throws BadRequestException {
         otpService.verifyToken(tokenDto);
-        return ResponseUtil.createUnifiedResponse(HttpStatus.OK.value(), ApiResponseConstant.TOKEN_VERIFIED, null);
+        return ResponseUtil.createUnifiedResponse(HttpStatus.OK.value(), APIResponseConstant.TOKEN_VERIFIED, null);
     }
 }
