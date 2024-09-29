@@ -1,10 +1,11 @@
 package com.ittovative.otpservice.exception;
 
-import com.ittovative.otpservice.util.ApiResponse;
+import com.ittovative.otpservice.constant.ExceptionConstant;
+import com.ittovative.otpservice.util.APIResponse;
+import com.ittovative.otpservice.util.ResponseUtil;
 import com.twilio.exception.TwilioException;
 import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -15,20 +16,17 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-import static com.ittovative.otpservice.constant.ExceptionConstant.VALIDATION_ERROR;
-
 @ControllerAdvice
 public class GeneralExceptionHandler {
     /**
      * Handle validation exceptions response entity.
      *
      * @param exception  the exception
-     * @param webRequest the web request
      * @return the response entity
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ApiResponse<Map<String, String>>> handleValidationExceptions(
-            MethodArgumentNotValidException exception, WebRequest webRequest) {
+    public APIResponse<Map<String, String>> handleValidationExceptions(
+            MethodArgumentNotValidException exception) {
 
         Map<String, String> errors = new HashMap<>();
         exception
@@ -41,66 +39,56 @@ public class GeneralExceptionHandler {
                             errors.put(fieldName, errorMessage);
                         });
 
-        ApiResponse<Map<String, String>> apiResponse =
-                new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), VALIDATION_ERROR, errors);
-        return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
+        return ResponseUtil.createUnifiedResponse(HttpStatus.BAD_REQUEST.value(), ExceptionConstant.VALIDATION_ERROR, errors);
     }
 
     /**
      * Handle response entity.
      *
      * @param exception  the exception
-     * @param webRequest the web request
      * @return the response entity
      */
     @ExceptionHandler(NoSuchElementException.class)
-    ResponseEntity<ApiResponse<String>> handle(
-            NoSuchElementException exception, WebRequest webRequest) {
-        ApiResponse<String> apiResponse =
-                new ApiResponse<>(HttpStatus.NOT_FOUND.value(), exception.getMessage(), null);
-        return new ResponseEntity<>(apiResponse, HttpStatus.NOT_FOUND);
+    APIResponse<String> handle(
+            NoSuchElementException exception) {
+        return ResponseUtil.createUnifiedResponse(HttpStatus.NOT_FOUND.value(),
+                exception.getMessage(), null);
     }
 
     /**
      * Handle response entity.
      *
      * @param exception  the exception
-     * @param webRequest the web request
      * @return the response entity
      */
     @ExceptionHandler(TwilioException.class)
-    ResponseEntity<ApiResponse<String>> handle(TwilioException exception, WebRequest webRequest) {
-        ApiResponse<String> apiResponse =
-                new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), exception.getMessage(), null);
-        return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
+    APIResponse<String> handle(TwilioException exception, WebRequest webRequest) {
+        return ResponseUtil.createUnifiedResponse(HttpStatus.BAD_REQUEST.value(),
+                exception.getMessage(), null);
     }
 
     /**
      * Handle response entity.
      *
      * @param exception  the exception
-     * @param webRequest the web request
      * @return the response entity
      */
     @ExceptionHandler(BadRequestException.class)
-    ResponseEntity<ApiResponse<String>> handle(
-            BadRequestException exception, WebRequest webRequest) {
-        ApiResponse<String> apiResponse =
-                new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), exception.getMessage(), null);
-        return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
+    APIResponse<String> handle(
+            BadRequestException exception) {
+        return ResponseUtil.createUnifiedResponse(HttpStatus.BAD_REQUEST.value(),
+                exception.getMessage(), null);
     }
 
     /**
      * Handle response entity.
      *
      * @param exception  the exception
-     * @param webRequest the web request
      * @return the response entity
      */
     @ExceptionHandler(Exception.class)
-    ResponseEntity<ApiResponse<String>> handle(Exception exception, WebRequest webRequest) {
-        ApiResponse<String> apiResponse =
-                new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), exception.getMessage(), null);
-        return new ResponseEntity<>(apiResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+    APIResponse<String> handle(Exception exception) {
+        return ResponseUtil.createUnifiedResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                exception.getMessage(), null);
     }
 }
