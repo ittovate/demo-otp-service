@@ -1,6 +1,6 @@
 package com.ittovative.otpservice.constant;
 
-import static com.ittovative.otpservice.constant.ExceptionConstant.UTILITY_CLASS_INSTANTIATION;
+import static com.ittovative.otpservice.constant.ExceptionConstant.UTILITY_CLASS_INSTANTIATION_MESSAGE;
 
 public final class SwaggerConstant {
     public static final String TITLE = "OTP Service API";
@@ -86,6 +86,6 @@ public final class SwaggerConstant {
             """;
 
     private SwaggerConstant() {
-        throw new IllegalStateException(UTILITY_CLASS_INSTANTIATION);
+        throw new IllegalStateException(UTILITY_CLASS_INSTANTIATION_MESSAGE);
     }
 }

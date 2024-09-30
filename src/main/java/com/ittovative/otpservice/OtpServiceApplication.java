@@ -21,9 +21,14 @@ import static com.ittovative.otpservice.constant.SwaggerConstant.VERSION;
 public class OtpServiceApplication {
 
     /**
-     * The entry point of application.
+     * The entry point of the OTP Service application.
+     * <p>
+     * This method starts the Spring Boot application by invoking {@link SpringApplication#run(Class, String...)}.
+     * It serves as the main entry point to launch the OTP service,
+     * which handles OTP generation, validation, and related tasks.
+     * </p>
      *
-     * @param args the input arguments
+     * @param args The input arguments passed from the command line.
      */
     public static void main(final String[] args) {
         SpringApplication.run(OtpServiceApplication.class, args);

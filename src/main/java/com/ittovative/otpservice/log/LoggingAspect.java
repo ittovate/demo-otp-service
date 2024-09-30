@@ -20,11 +20,22 @@ public class LoggingAspect {
     private static final Logger LOGGER = LoggerFactory.getLogger(LoggingAspect.class);
 
     /**
-     * Around advice for logging
-     * before and after executing project methods.
+     * Logs method execution details before and after the method is called.
+     * <p>
+     * This method serves as an around advice for methods within the {@code com.ittovative.otpservice} package.
+     * It logs information before the method is executed, including the class name, method name, and arguments.
+     * After the method execution, it logs the method's return value or,
+     * in case of an exception, logs the error details.
+     * </p>
+     * <p>
+     * This method provides useful logging for debugging and monitoring the behavior of methods within the application.
+     * It uses {@code Logger} to log messages at different stages of method execution.
+     * </p>
      *
-     * @param joinPoint which contains details about method called
-     * @return the return value of the method
+     * @param joinPoint The {@code ProceedingJoinPoint} which contains details about the method being executed,
+     *                  such as the class name, method name, and arguments.
+     * @return The result of the method execution.
+     * @throws Throwable If the method being logged throws an exception, it is propagated after logging the error.
      */
     @Around("execution(* com.ittovative.otpservice.*.*.*(..))")
     public Object log(ProceedingJoinPoint joinPoint) throws Throwable {

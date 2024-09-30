@@ -2,76 +2,81 @@ package com.ittovative.otpservice.service;
 
 import com.ittovative.otpservice.dto.OTPRequestDTO;
 import com.ittovative.otpservice.dto.TokenDTO;
+import com.redis.testcontainers.RedisContainer;
 import com.twilio.exception.ApiException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.SpyBean;
-import org.springframework.data.redis.connection.RedisConnection;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
+import static com.ittovative.otpservice.constant.OtpServiceTestConstant.IMAGE_NAME;
+
 @SpringBootTest
 @Testcontainers
+@SuppressWarnings("checkstyle:MethodName")
+@DisplayName("OTP Service Test")
 class OTPServiceTest {
     @Value("${twilio.verified-number}")
-    private String verifiedNumber;
-    private static GenericContainer redis;
-    private static final int PORT = 6379;
-    private static final String IMAGE = "redis";
-    private RedisConnection redisConnectionMock;
+    private String verifiedPhoneNumber;
 
-    @Mock
-    private RedisConnectionFactory redisConnectionFactoryMock;
+    @Value("${twilio.sender-number}")
+    private String senderPhoneNumber;
+
     @SpyBean
     private OTPService otpService;
 
     @BeforeAll
-    static void beforeAll() {
-        redis = new GenericContainer(DockerImageName.parse(IMAGE)).withExposedPorts(PORT);
-        redis.start();
+    static void startTestContainer() {
+        var redisContainer = new RedisContainer(DockerImageName.parse(IMAGE_NAME));
+        redisContainer.start();
     }
 
-    @BeforeEach
-    public void setUp() {
-        Mockito.when(redisConnectionFactoryMock.getConnection()).thenReturn(redisConnectionMock);
-    }
+    @Nested
+    @Tag("Integration Testing")
+    @DisplayName("Send OTP and verify token")
+    class SendOTPAndVerifyToken {
 
-    @Test
-    @Disabled("To avoid Free Twilio Limit")
-    @DisplayName("Send ")
-    void sendSuccessfulMessage() {
-        String actualToken = otpService.send(new OTPRequestDTO(verifiedNumber));
-        Assertions.assertDoesNotThrow(
-                () -> otpService.verifyToken(new TokenDTO(verifiedNumber, actualToken)));
-    }
+        @Test
+        @Disabled("To avoid using up free limited twilio credit")
+        @DisplayName("Send OTP and verify token when both are valid")
+        void Should_SendOTPAndVerifyToken_When_BothAreValid() {
+            OTPRequestDTO otpRequestDto = new OTPRequestDTO(verifiedPhoneNumber);
+            String actualToken = otpService.sendOTP(otpRequestDto);
 
-    @Test
-    @DisplayName("Sending an unsuccessful message : Too short of a Phone Number")
-    void sendMessageToAWrongPhoneNumber() {
-        Assertions.assertThrows(Exception.class, () -> otpService.send(new OTPRequestDTO("+1111")));
-    }
+            TokenDTO tokenDto = new TokenDTO(verifiedPhoneNumber, actualToken);
+            Assertions.assertDoesNotThrow(() -> otpService.verifyToken(tokenDto));
+        }
 
-    @Test
-    @DisplayName("Sending an unsuccessful message : Sender and Receiver have the same Phone Number")
-    void sendMessageToYourself() {
-        Assertions.assertThrows(
-                Exception.class, () -> otpService.send(new OTPRequestDTO("+15075541680")));
-    }
+        @Test
+        @DisplayName("Throw exception when phone number is too short")
+        void Should_ThrowException_When_PhoneNumberIsTooShort() {
+            OTPRequestDTO otpRequestDto = new OTPRequestDTO("+1111");
 
-    @Test
-    @DisplayName("Sending an unsuccessful message : Sending without a code at the start of the message")
-    void sendToAnUncodedPhoneNumber() {
-        Assertions.assertThrows(
-                ApiException.class, () -> otpService.send(new OTPRequestDTO("201007540077")));
+            Assertions.assertThrows(Exception.class, () -> otpService.sendOTP(otpRequestDto));
+        }
+
+        @Test
+        @DisplayName("Throw exception when send and receiver have the same phone number")
+        void Should_ThrowException_When_SenderAndReceiverHaveTheSamePhoneNumber() {
+            OTPRequestDTO otpRequestDto = new OTPRequestDTO(senderPhoneNumber);
+
+            Assertions.assertThrows(Exception.class, () -> otpService.sendOTP(otpRequestDto));
+        }
+
+        @Test
+        @DisplayName("Throw exception when phone number is missing plus sign")
+        void Should_ThrowException_When_PhoneNumberIsMissingPlusSign() {
+            OTPRequestDTO otpRequestDto = new OTPRequestDTO("201007540077");
+
+            Assertions.assertThrows(ApiException.class, () -> otpService.sendOTP(otpRequestDto));
+        }
     }
 }
